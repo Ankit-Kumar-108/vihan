@@ -9,8 +9,8 @@
   --color-background-light: #f8f6f7;
   --color-background-dark: #221019;
   --color-secondary-accent: #FF0088;
-
-  --font-family-display: "Plus Jakarta Sans", sans-serif;
+  --color-primary-dark: #c0156a;
+  --color-secondary-blue: #2b8cee --font-family-display: "Plus Jakarta Sans", sans-serif;
 
   --radius: 1rem;
   --radius-lg: 2rem;
@@ -97,6 +97,15 @@ body {
 
 @utility animate-fade-in {
   animation: fade-in 0.4s ease-out;
+}
+
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* ===== Register Page Background ===== */
