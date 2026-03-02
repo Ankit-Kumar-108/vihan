@@ -1,4 +1,4 @@
-import React from 'react'
+import Link from "next/link"
 
 export default function Footer() {
   return (
@@ -47,7 +47,7 @@ export default function Footer() {
             </div>
             <div className="border-t border-[#2d1b24] pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-600">
               <p>© 2026 Vihaan Festival. All rights reserved.</p>
-              <p className="flex items-center gap-1">Designed with <span className="material-symbols-outlined text-xs text-primary">favorite</span> by Tech Team</p>
+              <Link href={"/admin"} className="flex items-center gap-1 text-pink-500 font-bold dark:text-amber-300">Admin Panel</Link>
             </div>
           </div>
         </footer>

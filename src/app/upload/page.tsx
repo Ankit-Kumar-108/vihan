@@ -123,8 +123,8 @@ export default function UploadPage() {
         <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen register-page">
             {/* Top Bar */}
             <Nav />
-            <div className="sticky z-40 ">
-                <div className="max-w-3xl mx-auto flex items-center justify-between px-4 h-16">
+            <div className="sticky ">
+                <div className="max-w-3xl mx-auto flex items-center justify-between h-16 ml-1/2">
                     <Link href="/" className="flex items-center gap-2">
                     </Link>
                     <div className="flex items-center gap-3">
