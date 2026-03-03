@@ -36,10 +36,10 @@ export default function Gallery() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-5 sm:mb-6">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">Vihaan <span className="text-primary">2025</span> Highlights</h1>
             <div className="flex gap-2">
-              <button className="size-9 sm:size-10 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-colors">
+              <button className="size-9 sm:size-10 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-colors hover:cursor-pointer">
                 <span className="material-symbols-outlined text-[18px] sm:text-[24px]">arrow_back</span>
               </button>
-              <button className="size-9 sm:size-10 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-colors">
+              <button className="size-9 sm:size-10 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-colors hover:cursor-pointer">
                 <span className="material-symbols-outlined text-[18px] sm:text-[24px]">arrow_forward</span>
               </button>
             </div>
@@ -54,8 +54,8 @@ export default function Gallery() {
             <div className="absolute bottom-0 left-0 w-full p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col md:flex-row items-start md:items-end justify-between gap-4 sm:gap-6">
               <div className="max-w-2xl">
                 <div className="flex flex-wrap gap-2 sm:gap-3 mb-2 sm:mb-3">
-                  <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-primary text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider">Featured</span>
-                  <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider border border-white/10">Grand Finale</span>
+                  <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-primary text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider hover:cursor-pointer hover:translate-y-0.5 ease-in-out duration-200 delay-200 hover:scale-95 hover:brightness-115">Featured</span>
+                  <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider border border-white/10 hover:cursor-pointer hover:translate-y-0.5 ease-in-out duration-200 delay-200 hover:scale-95 hover:bg-slate-300/40">Grand Finale</span>
                 </div>
                 <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-bold text-white mb-1 sm:mb-2 leading-tight">The Grand Finale Night</h2>
                 <p className="text-slate-200 text-sm sm:text-base md:text-lg line-clamp-2">Witness the electrifying energy of the final performance that brought the entire campus to its feet.</p>

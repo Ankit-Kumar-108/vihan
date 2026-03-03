@@ -2,7 +2,18 @@
 import React from 'react'
 import Link from 'next/link';
 import ThemeToggle from '../ThemeToggle';
+import { usePathname } from 'next/navigation';
+
+
 export default function Nav() {
+
+  const pathName = usePathname();
+
+  const linkStyle = (href:string)=>{
+    const isActive = pathName === href;
+    return `text-sm font-bold transition-colors  ${isActive ? "text-red-400 underline-offset-4 decoration-red-400" : "text-slate-800 dark:text-slate-300 hover:text-primary" }`
+  }
+
   return (
     <header className="sticky top-0 z-40 w-full dark:bg-black/40 bg-primary/10 backdrop-blur-[5px] border-b-0 border-b-[#482336]/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -22,9 +33,9 @@ export default function Nav() {
             </div>
           </div>
           <nav className="hidden md:flex gap-8 items-center">
-            <Link className="text-slate-800 dark:text-slate-200 hover:text-primary transition-colors text-sm font-bold" href="/">Home</Link>
-            <Link className="text-slate-800 dark:text-slate-200 hover:text-primary transition-colors text-sm font-bold" href="/events">Events</Link>
-            <Link className="text-slate-800 dark:text-slate-200 hover:text-primary transition-colors text-sm font-bold" href="/gallery">Gallery</Link>
+            <Link className={linkStyle('/')} href="/">Home</Link>
+            <Link className={linkStyle('/events')} href="/events">Events</Link>
+            <Link className={linkStyle('/gallery')} href="/gallery">Gallery</Link>
           </nav>
           <div className="flex items-center gap-4">
             <ThemeToggle />

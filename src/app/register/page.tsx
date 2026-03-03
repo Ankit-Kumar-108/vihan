@@ -36,6 +36,7 @@ export default function RegisterPage() {
                                                 className="w-full bg-slate-100 dark:bg-background-dark/50 border border-slate-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-400 text-slate-900 dark:text-white"
                                                 placeholder="Enter Name"
                                                 type="text"
+                                                name='name'
                                             />
                                         </div>
                                     </div>
@@ -48,6 +49,7 @@ export default function RegisterPage() {
                                                 className="w-full bg-slate-100 dark:bg-background-dark/50 border border-slate-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-400 text-slate-900 dark:text-white"
                                                 placeholder="your@gmail.com"
                                                 type="email"
+                                                name='email'
                                             />
                                         </div>
                                     </div>
@@ -60,6 +62,7 @@ export default function RegisterPage() {
                                                 className="w-full bg-slate-100 dark:bg-background-dark/50 border border-slate-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-400 text-slate-900 dark:text-white"
                                                 placeholder="Enter Your Enrollemnt"
                                                 type="text"
+                                                name='enrollment'
                                             />
                                         </div>
                                     </div>
@@ -72,7 +75,9 @@ export default function RegisterPage() {
                                                 className="w-full bg-slate-100 dark:bg-background-dark/50 border border-slate-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-400 text-slate-900 dark:text-white"
                                                 placeholder="Enter Contact Details"
                                                 type="text"
+                                                name='contact'
                                             />
+    
                                         </div>
                                     </div>
 
