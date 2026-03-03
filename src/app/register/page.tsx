@@ -1,8 +1,21 @@
 'use client';
 import Nav from '../components/nav/nav';
 import Footer from '../components/footer/footer';
+import { handleRegisteration } from '../email/emailBackend';
 
 export default function RegisterPage() {
+
+     const handleSubmit = async (formData:FormData)=>{
+        const result =  await handleRegisteration(formData)
+
+        if (result.success) {
+            alert("Regisetration Successfull!,kindly check your email")
+        }
+        else{
+            alert("Something went wrong.Please try again")
+        }
+     }
+
     return (
         <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen font-display register-page">
             {/* Header Section */}
@@ -20,7 +33,7 @@ export default function RegisterPage() {
                     </div>
                     {/* Form Container */}
                     <div className="glass-card rounded-lg p-8 md:p-12 shadow-2xl border-white/5 bg-white/5">
-                        <form className="space-y-10">
+                        <form action={handleSubmit} className="space-y-10">
                             {/* Step 1: Personal Details Section */}
                             <div className="space-y-8">
                                 <div className="flex items-center gap-3 border-l-4 border-primary pl-4">
