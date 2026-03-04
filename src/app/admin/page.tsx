@@ -1,23 +1,15 @@
 'use client';
 import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { ApprovePhoto } from './approvePhoto';
+import { ApprovePhoto, BulkApprovePhotos } from './approvePhoto';
 import GetPhoto from './getPhoto';
 import DeletePhoto from './deletePhoto';
+import { signOut } from 'next-auth/react';
 
-// interface PendingPhoto {
-//     id: string;
-//     category: string;
-//     uploaderName: string;
-//     dataUrl: string;
-//     fileName: string;
-//     timestamp: string;
-//     status: 'pending' | 'approved' | 'rejected';
-// }
 interface PendingPhoto {
     id: string;
     timestamp: string
-    driveId: string;
+    cloudyId: string;
     fileName: string
     category: string;
     uploaderName: string;
@@ -31,42 +23,66 @@ export default function AdminPage() {
     const [filter, setFilter] = useState<'pending' | 'published' | 'all'>('pending');
     const [selectedPhoto, setSelectedPhoto] = useState<PendingPhoto | null>(null);
     const [loading, setLoading] = useState(false)
+    const [lastId, setLastId] = useState<string | null>(null);
+    const [hasMore, setHasMore] = useState(false);
+    const [bulkApproving, setBulkApproving] = useState(false);
 
-    const loadPhotos = useCallback(async () => {
+    const loadPhotos = useCallback(async (reset = true) => {
         setLoading(true)
-        const Data = await GetPhoto()
-        setPhotos(Data as PendingPhoto[])
+        const result = await GetPhoto(reset ? undefined : (lastId ?? undefined));
+        if (reset) {
+            setPhotos(result.photos as PendingPhoto[]);
+        } else {
+            setPhotos(prev => [...prev, ...(result.photos as PendingPhoto[])]);
+        }
+        setLastId(result.lastId);
+        setHasMore(result.hasMore);
         setLoading(false)
-    }, []);
+    }, [lastId]);
 
     useEffect(() => {
-        loadPhotos();
-    }, [loadPhotos]);
+        loadPhotos(true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleApprove = async (photo: PendingPhoto) => {
-        const approvedPhoto = await ApprovePhoto(photo.id, photo.driveId)
+        const approvedPhoto = await ApprovePhoto(photo.id)
         if (approvedPhoto.success) {
-            // setPhotos(prev => prev.map(p => p.id === photo.id ? { ...p, status: 'published' } : p))
             setSelectedPhoto(null)
-            updateStatusLocally(photo.id, 'published')
+            setPhotos(prev => prev.map(p => p.id === photo.id ? { ...p, status: 'published' as const } : p));
         }
         else {
             alert("Approval failed. Check console")
         }
     };
 
-    const updateStatusLocally = (id: string, status: 'published') => {
-        setPhotos(prev => photos.map((p) => (p.id === id ? { ...p, status } : p)));
-        setSelectedPhoto(null);
-    };
+    const bulkAction = async () => {
+        const pendingPhotos = photos.filter((p) => p.status === 'pending');
+        if (pendingPhotos.length === 0) return;
 
-    const bulkAction = (status: 'published',) => {
-        const updated = photos.map((p) => (p.status === 'pending' ? { ...p, status } : p));
-        setPhotos(updated);
+        setBulkApproving(true);
+        try {
+            const ids = pendingPhotos.map(p => p.id);
+            // Firestore batch writes have a limit of 500 docs
+            // Split into chunks if needed
+            for (let i = 0; i < ids.length; i += 500) {
+                const chunk = ids.slice(i, i + 500);
+                const result = await BulkApprovePhotos(chunk);
+                if (result.success) {
+                    setPhotos(prev => prev.map(p =>
+                        chunk.includes(p.id) ? { ...p, status: 'published' as const } : p
+                    ));
+                }
+            }
+        } catch (error) {
+            alert("Bulk approval failed. Check console.");
+        } finally {
+            setBulkApproving(false);
+        }
     };
 
     const deletePhoto = async (photo: PendingPhoto) => {
-        const result = await DeletePhoto(photo.id, photo.driveId);
+        const result = await DeletePhoto(photo.id, photo.cloudyId);
 
         if (result.success) {
             const updatedList = photos.filter((p) => p.id !== photo.id);
@@ -97,9 +113,16 @@ export default function AdminPage() {
                         <span className="text-slate-300 dark:text-slate-600">|</span>
                         <span className="text-xs font-bold text-primary uppercase tracking-wider">Admin Panel</span>
                     </div>
-                    <button onClick={loadPhotos} className="text-sm text-slate-500 hover:text-primary flex items-center gap-1 transition-colors">
+                    <button onClick={() => loadPhotos(true)} className="text-sm text-slate-500 hover:text-primary flex items-center gap-1 transition-colors">
                         <span className={`material-symbols-outlined ${loading ? 'animate-spin' : ''}`}>refresh</span>
                         {loading ? 'Loading...' : 'Refresh'}
+                    </button>
+                    <button
+                        onClick={() => signOut({ callbackUrl: "/" })}
+                        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-100 text-red-600 hover:bg-red-600 hover:text-white transition-all font-medium"
+                    >
+                        <span className="material-symbols-outlined text-[20px]">logout</span>
+                        Sign Out
                     </button>
                 </div>
             </div>
@@ -108,8 +131,8 @@ export default function AdminPage() {
                 {/* Stats Row */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
                     <div className="glass-card rounded-xl p-4 text-center">
-                        <p className="text-2xl font-black text-slate-900 dark:text-white">{photos.length}</p>
-                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total</p>
+                        <p className="text-2xl font-black text-slate-900 dark:text-white">{photos.length}{hasMore ? '+' : ''}</p>
+                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Loaded</p>
                     </div>
                     <div className="glass-card rounded-xl p-4 text-center border-yellow-500/20">
                         <p className="text-2xl font-black text-yellow-500">{pendingCount}</p>
@@ -119,10 +142,6 @@ export default function AdminPage() {
                         <p className="text-2xl font-black text-green-500">{approvedCount}</p>
                         <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Approved</p>
                     </div>
-                    {/* <div className="glass-card rounded-xl p-4 text-center border-red-500/20">
-                        <p className="text-2xl font-black text-red-500">{rejectedCount}</p>
-                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Rejected</p>
-                    </div> */}
                 </div>
 
                 {/* Filter bar + Bulk Actions */}
@@ -144,17 +163,16 @@ export default function AdminPage() {
                     {pendingCount > 0 && filter === 'pending' && (
                         <div className="flex gap-2">
                             <button
-                                onClick={() => bulkAction('published')}
-                                className="px-4 py-2 rounded-full bg-green-500/10 text-green-500 text-xs font-bold hover:bg-green-500/20 transition-colors flex items-center gap-1"
+                                onClick={() => bulkAction()}
+                                disabled={bulkApproving}
+                                className="px-4 py-2 rounded-full bg-green-500/10 text-green-500 text-xs font-bold hover:bg-green-500/20 transition-colors flex items-center gap-1 disabled:opacity-50"
                             >
-                                <span className="material-symbols-outlined text-sm">done_all</span> Approve All
+                                {bulkApproving ? (
+                                    <><span className="material-symbols-outlined text-sm animate-spin">sync</span> Approving...</>
+                                ) : (
+                                    <><span className="material-symbols-outlined text-sm">done_all</span> Approve All</>
+                                )}
                             </button>
-                            {/* <button
-                                onClick={() => bulkAction('rejected')}
-                                className="px-4 py-2 rounded-full bg-red-500/10 text-red-500 text-xs font-bold hover:bg-red-500/20 transition-colors flex items-center gap-1"
-                            >
-                                <span className="material-symbols-outlined text-sm">block</span> Reject All
-                            </button> */}
                         </div>
                     )}
                 </div>
@@ -191,6 +209,23 @@ export default function AdminPage() {
                                 </div>
                             </div>
                         ))}
+                    </div>
+                )}
+
+                {/* Load More Button */}
+                {hasMore && (
+                    <div className="text-center mt-8">
+                        <button
+                            onClick={() => loadPhotos(false)}
+                            disabled={loading}
+                            className="px-8 py-3 rounded-full bg-primary/10 text-primary font-bold text-sm hover:bg-primary/20 transition-colors disabled:opacity-50 flex items-center gap-2 mx-auto"
+                        >
+                            {loading ? (
+                                <><span className="material-symbols-outlined text-sm animate-spin">sync</span> Loading...</>
+                            ) : (
+                                <><span className="material-symbols-outlined text-sm">expand_more</span> Load More Photos</>
+                            )}
+                        </button>
                     </div>
                 )}
             </main>
@@ -233,14 +268,6 @@ export default function AdminPage() {
                                         <span className="material-symbols-outlined text-lg">check</span> Approve
                                     </button>
                                 )}
-                                {/* {selectedPhoto.status !== 'rejected' && (
-                                    <button
-                                        onClick={() => updateStatus(selectedPhoto.id, 'rejected')}
-                                        className="flex-1 py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-bold text-sm transition-colors flex items-center justify-center gap-1.5"
-                                    >
-                                        <span className="material-symbols-outlined text-lg">close</span> Reject
-                                    </button>
-                                )} */}
                                 <button
                                     onClick={() => deletePhoto(selectedPhoto)}
                                     className="py-3 px-4 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-red-50 dark:hover:bg-red-500/10 text-slate-500 hover:text-red-500 font-bold text-sm transition-colors"

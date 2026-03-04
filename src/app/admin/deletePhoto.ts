@@ -1,12 +1,14 @@
 "use server"
-import { db, drive } from "@/lib/server-configs"
+import { db, cloudinary } from "@/lib/server-configs"
 import { revalidatePath } from "next/cache"
 
-export default async function DeletePhoto(docId: string, driveId: string) {
+export default async function DeletePhoto(id: string, cloudyId: string) {
   try {
 
-    await drive.files.delete({ fileId: driveId })
-    await db.collection('submissions').doc(docId).delete()
+    const cloudinaryRes = await cloudinary.uploader.destroy(cloudyId) 
+
+    // await drive.files.delete({ fileId: driveId })
+    await db.collection('submissions').doc(id).delete()
 
     revalidatePath("/admin")
 

@@ -1,23 +1,15 @@
-import { google } from "googleapis";
+import { v2 as cloudinary } from "cloudinary";
 import * as admin from "firebase-admin";
 
-// 1. Google Drive OAuth2 Setup
-const oauth2Client = new google.auth.OAuth2(
-  process.env.GOOGLE_CLIENT_ID,
-  process.env.GOOGLE_CLIENT_SECRET,
-  "https://developers.google.com/oauthplayground"
-);
+//Cloudinary Pass
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+})
 
-oauth2Client.setCredentials({
-  refresh_token: process.env.GOOGLE_REFRESH_TOKEN,
-});
-
-export const drive = google.drive({ version: 'v3', auth: oauth2Client });
-
-// CONNECTION TEST: This will print in your VS Code terminal
-drive.about.get({ fields: 'user' })
-  .then(res => console.log("🚀 Drive Connected as:", res.data.user?.emailAddress))
-  .catch(err => console.error("❌ Drive Auth Error:", err.message));
+                                          
+  export {cloudinary}
 
 // 2. Firebase Admin Setup
 if (!admin.apps.length) {
