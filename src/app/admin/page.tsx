@@ -132,15 +132,15 @@ export default function AdminPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
                     <div className="glass-card rounded-xl p-4 text-center">
                         <p className="text-2xl font-black text-slate-900 dark:text-white">{photos.length}{hasMore ? '+' : ''}</p>
-                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Loaded</p>
+                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">No. of Loaded Images</p>
                     </div>
                     <div className="glass-card rounded-xl p-4 text-center border-yellow-500/20">
                         <p className="text-2xl font-black text-yellow-500">{pendingCount}</p>
-                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pending</p>
+                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">No. of Pending Images</p>
                     </div>
                     <div className="glass-card rounded-xl p-4 text-center border-green-500/20">
                         <p className="text-2xl font-black text-green-500">{approvedCount}</p>
-                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Approved</p>
+                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">No. of Approved Images</p>
                     </div>
                 </div>
 

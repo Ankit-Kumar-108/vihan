@@ -6,6 +6,7 @@ import About from "./components/About";
 import EventsShowcase from "./components/EventsShowcase";
 import Timeline from "./components/Timeline";
 import QRUploadSection from "./components/QRUploadSection";
+import Image from "next/image";
 
 export default function VihaanFestival() {
   return (
@@ -85,12 +86,17 @@ export default function VihaanFestival() {
           </section>
           {/* Category Section */}
           <section className="relative z-10 py-12 px-4 md:px-8 max-w-7xl mx-auto">
+            <div className="p-3 mb-7">
+            <h1 className="font-bold text-2xl md:text-5xl mb-3">Winners of Vihan26</h1>
+             <p className="text-slate-500 dark:text-slate-400">Captured, best moments from Vihan</p>
+            </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { href: 'events/Music', icon: 'music_note', name: 'Music', count: '8 Events', gradient: 'from-pink-600 via-rose-500 to-orange-400' },
-                { href: 'events/Dance', icon: 'settings_accessibility', name: 'Dance', count: '6 Events', gradient: 'from-blue-600 via-indigo-500 to-violet-400' },
-                { href: 'events/Sports', icon: 'sports_basketball', name: 'Sports', count: '12 Events', gradient: 'from-emerald-600 via-green-500 to-teal-400' },
-                { href: 'events/Debate', icon: 'campaign', name: 'Debate', count: '4 Events', gradient: 'from-amber-600 via-yellow-500 to-orange-400' },
+                { href: 'events/Singing-Winner', icon: 'music_note', name: 'Singing', count: '8 Events', gradient: 'from-pink-600 via-rose-500 to-orange-400' },
+                { href: 'events/Dance-Winner', icon: 'settings_accessibility', name: 'Dance', count: '6 Events', gradient: 'from-blue-600 via-indigo-500 to-violet-400' },
+                { href: 'events/Sports-Winner', icon: 'sports_basketball', name: 'Sports', count: '12 Events', gradient: 'from-emerald-600 via-green-500 to-teal-400' },
+                { href: 'events/Fashion-Winner', icon: 'campaign', name: 'Fashion', count: '4 Events', gradient: 'from-amber-600 via-yellow-500 to-orange-400' },
+                { href: 'events/Technical-Winer', icon: 'campaign', name: 'Technical', count: '4 Events', gradient: 'from-purple-600 via-purple-400 to-purple-200' }
               ].map((cat) => (
                 <Link key={cat.name} href={cat.href}>
                   <div className={`group relative overflow-hidden rounded-2xl h-44 bg-linear-to-br ${cat.gradient} cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)]`}>
@@ -121,85 +127,103 @@ export default function VihaanFestival() {
           <section className="relative z-10 py-16 px-4 md:px-8 max-w-7xl mx-auto">
             <div className="flex items-end justify-between mb-10">
               <div>
-                <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-2">Festival Highlights</h2>
-                <p className="text-slate-500 dark:text-slate-400">Capturing the best moments from Vihaan '23</p>
+                <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-2">Vihan Highlights</h2>
+                <p className="text-slate-500 dark:text-slate-400">Captured, best moments from Vihan</p>
               </div>
-              <button className="hidden md:flex text-primary font-bold items-center gap-1 hover:gap-2 transition-all">
+              <Link href={"/gallery"} className="hidden md:flex text-primary font-bold items-center gap-1 hover:gap-2 transition-all">
                 View Full Gallery <span className="material-symbols-outlined text-lg">arrow_forward</span>
-              </button>
+              </Link>
             </div>
 
             {/* Masonry Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[250px]">
 
               <Link
-                href="events/Pro-Night"
+                href="gallery/#dance"
                 className="md:col-span-2 md:row-span-2 relative group rounded-2xl overflow-hidden cursor-pointer block w-full h-full"
               >
                 <div
                   className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                   data-alt="Close up of a singer performing on stage with white lighting"
-                  style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuD7cqRk1F-_iXbiOJEV_r7O4p1pSxGkxvcSVOxcr_dpU8p1xeZzJ9lHNonrv_wE1mqyIYB0y2SphnpFelY1kLTUgkflxZV22vtEmfCLqY_gBXxxg45laoW0j4RLLGKvyJczvc1D1kXMk5mr4eHBr1KMhX1IT3l4ly9Bx_KADQ1aNs0tBNGwu0b32m74uHBIV_2vwKjVIC-Jl3aQOu38AmHJ4LKGQpIztF7Goa4gkbu9PxecPgySd9C9Kukv5zq1LGBNbbYaSrXKWTdU')" }}
-                ></div>
-                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-80 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute bottom-0 left-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                  <span className="bg-violet-600 text-white text-xs font-bold px-2 py-1 rounded-md mb-2 inline-block">Pro Night</span>
-                  <h3 className="text-white text-2xl font-bold">Battle of the Bands Finale</h3>
-                </div>
-              </Link>
-
-              <Link
-                href="events/Dance"
-                className="md:row-span-2 relative group rounded-2xl overflow-hidden cursor-pointer block w-full h-full"
-              >
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                  data-alt="Silhouette of a hip hop dancer performing a jump in the air"
-                  style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAv47UrY86X6pyuwIup-4ag0ufjfK37WOkPd_hN7MZ-44BlKawb77ffXAToIjNPQOio6vfQe1ZLFRSkjscsHEQT0EdLFn-0o8LbmVQjtlyfkyuwPPoREz_dlNkaAHFI4OCr-X3XHOzMy1dfPkld0h7LSwlthDxSxRt_vfmcchjlj4j6FRV9XH04mmxg1eOTbCYKrVDpwuJmFkhQE0sni7hsbMwzNka82WWgoKUmni0DuoKh8rC6ZXlHGjScZEYjtlVPQPvpBbqx0CZF')" }}
+                  style={{ backgroundImage: "url('/images/dance.jpg')" }}
                 ></div>
                 <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-80 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="absolute bottom-0 left-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                   <span className="bg-violet-600 text-white text-xs font-bold px-2 py-1 rounded-md mb-2 inline-block">Dance</span>
-                  <h3 className="text-white text-xl font-bold">Street Dance Face-off</h3>
+                  <h3 className="text-white text-2xl font-bold">Let your heart lead feet</h3>
                 </div>
               </Link>
 
               <Link
-                href="events/Hackathon"
+                href="gallery/#fashion"
+                className="md:row-span-2 relative group rounded-2xl overflow-hidden cursor-pointer block w-full h-full"
+              >
+                <div
+                  className="absolute inset-0 bg-cover transition-transform duration-700 group-hover:scale-105 bg-top"
+                  data-alt="Silhouette of a hip hop dancer performing a jump in the air"
+                  style={{ backgroundImage: "url('images/fashion.jpg')" }}
+                ></div>
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-80 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute bottom-0 left-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                  <span className="bg-violet-600 text-white text-xs font-bold px-2 py-1 rounded-md mb-2 inline-block">Fashion</span>
+                  <h3 className="text-white text-xl font-bold">Elegance in every single thread</h3>
+                </div>
+              </Link>
+
+              <Link
+                href="gallery/#tech"
                 className="relative group rounded-2xl overflow-hidden cursor-pointer block w-full h-full"
               >
                 <div
                   className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                   data-alt="People sitting around tables with laptops at a hackathon event"
-                  style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuC4VfSlGqwRvllj5W5Hv9UBxREJw20wRAU2BUO3vl-Z6sQiNk6Px7rt6n-_X-9ipVGM19ibwuvhwAX8Bp4KJWHMeVniJ5Cq2bLErY65gK7pCAYSWhjm1KqR41A8v3DrU6WQ71fiK87NAiSXAYBDPq3UGg3YQIh_aMdcxPmH95ntWtnt7VAgCvmZK7qPOsl2Jb2EkIDWOcxICC3OyNQ18SmcLa27j5IiHF42jso5xcEqhAitXsQuqF4_e7YIOOCnEtafbPatXUshYKvO')" }}
+                  style={{ backgroundImage: "url('images/cricket.png')" }}
                 ></div>
                 <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-80 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="absolute bottom-0 left-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                  <span className="bg-indigo-500 text-white text-xs font-bold px-2 py-1 rounded-md mb-2 inline-block">Tech</span>
-                  <h3 className="text-white text-lg font-bold">24H Hackathon</h3>
+                  <span className="bg-indigo-500 text-white text-xs font-bold px-2 py-1 rounded-md mb-2 inline-block">Sports</span>
+                  <h3 className="text-white text-lg font-bold">Master the field of uncertainty</h3>
                 </div>
               </Link>
 
               <Link
+                href="/gallery/#singing"
+                className="relative group rounded-2xl overflow-hidden cursor-pointer block w-full h-full"
+              >
+                <div
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                  data-alt="Colorful abstract fashion show runway with models"
+                  style={{ backgroundImage: "url('images/singing.jpg')" }}
+                ></div>
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-80 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute bottom-0 left-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                  <span className="bg-violet-600 text-white text-xs font-bold px-2 py-1 rounded-md mb-2 inline-block">Singing</span>
+                  <h3 className="text-white text-lg font-bold">Masterful techniques for remarkable</h3>
+                </div>
+              </Link>
+
+               <Link
                 href="events/Fashon"
                 className="relative group rounded-2xl overflow-hidden cursor-pointer block w-full h-full"
               >
                 <div
                   className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                   data-alt="Colorful abstract fashion show runway with models"
-                  style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAKGOQX2rCTpYJ4dYF099iN6YpR3SZIsdxPkqUtqW4Hr_wUCvM7qmk80cg2mz9aVkAIzoBEpoTI9X_SHyFAOITFAF9OEMDx7yqmVGkjv1r6q0PxosMxQJGfFSRotm7dkEF1qbCLfvY1FrRDBb8JMYuspaff_kWjx45oLmRyPmN2lpnOjVo5b_k6luqsDBZ1UErLBoza7h1wmDElEWujUbd9xTxEqhP1YyqEcLLzDS8G4cRjw5lVZXPuknCBHYBkSEXhfO0RYjoYyfB5')" }}
+                  style={{ backgroundImage: "url('images/tech.jpg')" }}
                 ></div>
                 <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-80 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="absolute bottom-0 left-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                   <span className="bg-violet-600 text-white text-xs font-bold px-2 py-1 rounded-md mb-2 inline-block">Fashion</span>
-                  <h3 className="text-white text-lg font-bold">Vogue Runway</h3>
+                  <h3 className="text-white text-lg font-bold">Where innovation meets human inspiration</h3>
                 </div>
               </Link>
 
             </div>
-            <button className="md:hidden w-full mt-6 py-3 rounded-xl border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white font-medium hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+            <Link href={"/gallery"}>
+            <button className="md:hidden w-full bg-primary font-bold mt-6 py-3 rounded-xl border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
               View Full Gallery
             </button>
+            </Link>
           </section>
           {/* About Section */}
           <About />

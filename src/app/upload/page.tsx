@@ -6,12 +6,12 @@ import Footer from '../components/footer/footer';
 
 const categories = [
     { name: 'Dance', icon: 'settings_accessibility', color: 'from-blue-500 to-indigo-600' },
-    { name: 'Music', icon: 'music_note', color: 'from-pink-500 to-rose-600' },
+    { name: 'Singing', icon: 'music_note', color: 'from-pink-500 to-rose-600' },
     // { name: 'Race', icon: 'directions_run', color: 'from-orange-500 to-red-600' },
-    { name: 'Debate', icon: 'record_voice_over', color: 'from-yellow-500 to-amber-600' },
+    { name: 'Technical', icon: 'developer_mode_tv', color: 'from-yellow-500 to-amber-600' },
     // { name: 'Badminton', icon: 'sports_tennis', color: 'from-cyan-500 to-teal-600' },
-    { name: 'Cricket', icon: 'sports_cricket', color: 'from-green-500 to-emerald-600' },
-    // { name: 'Fashion Show', icon: 'checkroom', color: 'from-fuchsia-500 to-pink-600' },
+    { name: 'Sports', icon: 'sports_cricket', color: 'from-green-500 to-emerald-600' },
+    { name: 'Fashion Show', icon: 'checkroom', color: 'from-fuchsia-500 to-pink-600' },
     // { name: 'Hackathon', icon: 'terminal', color: 'from-violet-500 to-purple-600' },
     // { name: 'Art', icon: 'palette', color: 'from-amber-500 to-yellow-600' },
     // { name: 'Poetry', icon: 'edit_note', color: 'from-rose-500 to-pink-600' },

@@ -2,10 +2,10 @@
 import React from 'react';
 
 const stats = [
-    { icon: 'groups', value: '10,000+', label: 'Attendees' },
-    { icon: 'celebration', value: '50+', label: 'Events' },
+    { icon: 'groups', value: '1,000+', label: 'Attendees' },
+    { icon: 'celebration', value: '10+', label: 'Events' },
     { icon: 'calendar_month', value: '3', label: 'Epic Days' },
-    { icon: 'school', value: '15+', label: 'Colleges' },
+    { icon: 'school', value: '5+', label: 'Colleges' },
 ];
 
 export default function About() {
