@@ -87,8 +87,8 @@ export default function VihaanFestival() {
           {/* Category Section */}
           <section className="relative z-10 py-12 px-4 md:px-8 max-w-7xl mx-auto">
             <div className="p-3 mb-7">
-            <h1 className="font-bold text-2xl md:text-5xl mb-3">Winners of Vihan26</h1>
-             <p className="text-slate-500 dark:text-slate-400">Captured, best moments from Vihan</p>
+              <h1 className="font-bold text-2xl md:text-5xl mb-3">Winners of Vihaan 2026</h1>
+              <p className="text-slate-500 dark:text-slate-400">Top of the Line</p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
@@ -96,7 +96,7 @@ export default function VihaanFestival() {
                 { href: 'events/Dance-Winner', icon: 'settings_accessibility', name: 'Dance', count: '6 Events', gradient: 'from-blue-600 via-indigo-500 to-violet-400' },
                 { href: 'events/Sports-Winner', icon: 'sports_basketball', name: 'Sports', count: '12 Events', gradient: 'from-emerald-600 via-green-500 to-teal-400' },
                 { href: 'events/Fashion-Winner', icon: 'campaign', name: 'Fashion', count: '4 Events', gradient: 'from-amber-600 via-yellow-500 to-orange-400' },
-                { href: 'events/Technical-Winer', icon: 'campaign', name: 'Technical', count: '4 Events', gradient: 'from-purple-600 via-purple-400 to-purple-200' }
+                { href: 'events/Technical-Winner', icon: 'campaign', name: 'Technical', count: '4 Events', gradient: 'from-purple-600 via-purple-400 to-purple-200' }
               ].map((cat) => (
                 <Link key={cat.name} href={cat.href}>
                   <div className={`group relative overflow-hidden rounded-2xl h-44 bg-linear-to-br ${cat.gradient} cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)]`}>
@@ -127,8 +127,8 @@ export default function VihaanFestival() {
           <section className="relative z-10 py-16 px-4 md:px-8 max-w-7xl mx-auto">
             <div className="flex items-end justify-between mb-10">
               <div>
-                <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-2">Vihan Highlights</h2>
-                <p className="text-slate-500 dark:text-slate-400">Captured, best moments from Vihan</p>
+                <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-2">Vihaan Highlights</h2>
+                <p className="text-slate-500 dark:text-slate-400">Captured, best moments from Vihaan</p>
               </div>
               <Link href={"/gallery"} className="hidden md:flex text-primary font-bold items-center gap-1 hover:gap-2 transition-all">
                 View Full Gallery <span className="material-symbols-outlined text-lg">arrow_forward</span>
@@ -202,8 +202,8 @@ export default function VihaanFestival() {
                 </div>
               </Link>
 
-               <Link
-                href="events/Fashon"
+              <Link
+                href="events/Fashion-Winner"
                 className="relative group rounded-2xl overflow-hidden cursor-pointer block w-full h-full"
               >
                 <div
@@ -220,9 +220,9 @@ export default function VihaanFestival() {
 
             </div>
             <Link href={"/gallery"}>
-            <button className="md:hidden w-full bg-primary font-bold mt-6 py-3 rounded-xl border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
-              View Full Gallery
-            </button>
+              <button className="md:hidden w-full bg-primary font-bold mt-6 py-3 rounded-xl border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                View Full Gallery
+              </button>
             </Link>
           </section>
           {/* About Section */}

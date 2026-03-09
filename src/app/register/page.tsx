@@ -3,8 +3,12 @@ import Nav from '../components/nav/nav';
 import Footer from '../components/footer/footer';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useSettings } from '@/hooks/useSettings';
 
 export default function RegisterPage() {
+    const { settings, loaded: settingsLoaded } = useSettings();
+    const isToggle = !settings.registrationEnabled;
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -17,21 +21,6 @@ export default function RegisterPage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState('');
-    const [isToggle, setIsToggle] = useState(false)
-    const [settingsLoaded , setSettingsLoaded] = useState(false)
-
-
-    useEffect(() => {
-        fetch('/api/admin/settings/')
-        .then(res => res.json())
-        .then(data => {
-            setIsToggle(!data.registrationEnabled)
-            setSettingsLoaded(true)
-        })
-
-        .catch(() =>
-        setSettingsLoaded(true))
-    },[])
 
     useEffect(() => {
         if (isSuccess) {
@@ -101,6 +90,14 @@ export default function RegisterPage() {
         </div>
     );
 
+
+    if (!settingsLoaded) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-background-light dark:bg-background-dark">
+                <span className="material-symbols-outlined animate-spin text-primary text-3xl">sync</span>
+            </div>
+        );
+    }
 
     return (
         <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen font-display register-page">
@@ -197,7 +194,7 @@ export default function RegisterPage() {
                                                 onChange={(e) => setFormData({ ...formData, department: e.target.value })}
                                                 required
                                                 className="w-full bg-slate-100 dark:bg-background-dark/50 border border-slate-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-slate-400 appearance-none">
-                                                <option>Select Department</option>
+                                                <option value="">Select Department</option>
                                                 <option>Computer Science Engineering (REC)</option>
                                                 <option>Mechanical Engineering (REC)</option>
                                                 <option>Civil Engineering (REC)</option>

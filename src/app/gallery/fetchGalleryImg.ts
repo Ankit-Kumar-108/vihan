@@ -33,3 +33,40 @@ export async function FetchGalleryImg(categoryName: string, lastDocId?: string) 
     return { photos: [], lastId: null };
   }
 }
+
+// Full-resolution variant for category pages — larger batches, no transforms
+export async function FetchGalleryImgFullRes(categoryName: string, lastDocId?: string) {
+  try {
+    let query = db.collection('submissions')
+      .where('category', '==', categoryName)
+      .where('status', '==', 'published')
+      .orderBy('createdAt', 'desc')
+      .limit(20);
+
+    if (lastDocId) {
+      const lastDoc = await db.collection('submissions').doc(lastDocId).get();
+      if (lastDoc.exists) {
+        query = query.startAfter(lastDoc);
+      }
+    }
+
+    const snapshot = await query.get();
+
+    const photos = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+      // Keep original URL for full-res display
+      fullUrl: doc.data().url as string,
+      // Also generate a responsive version for initial load
+      thumbnailUrl: (doc.data().url as string).replace('/upload/', '/upload/f_auto,q_auto,w_800/'),
+    }));
+
+    return {
+      photos: JSON.parse(JSON.stringify(photos)),
+      lastId: snapshot.docs[snapshot.docs.length - 1]?.id || null
+    };
+  } catch (error) {
+    console.error("Error fetching full-res:", error);
+    return { photos: [], lastId: null };
+  }
+}

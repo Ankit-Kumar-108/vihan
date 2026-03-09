@@ -5,6 +5,7 @@ import { ApprovePhoto, BulkApprovePhotos } from './approvePhoto';
 import GetPhoto from './getPhoto';
 import DeletePhoto from './deletePhoto';
 import { signOut } from 'next-auth/react';
+import { useSettings } from '@/hooks/useSettings';
 
 interface PendingPhoto {
     id: string;
@@ -26,31 +27,7 @@ export default function AdminPage() {
     const [lastId, setLastId] = useState<string | null>(null);
     const [hasMore, setHasMore] = useState(false);
     const [bulkApproving, setBulkApproving] = useState(false);
-    const [settings, setSettings] = useState({
-        registrationEnabled: true,
-        uploadEnabled: true,
-        uploadLimitPerUser: 4
-    })
-
-    useEffect(() => {
-        fetch('/api/admin/settings')
-            .then(res => res.json())
-            .then(data =>
-                setSettings(data)
-            )
-
-    }, [])
-
-    const updateSettings = async (key: string, value: any) => {
-        setSettings(prev => ({ ...prev, [key]: value }))
-        await fetch('/api/admin/settings',
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ [key]: value }),
-            })
-
-    }
+    const { settings, updateSetting } = useSettings();
 
     const loadPhotos = useCallback(async (reset = true) => {
         setLoading(true)
@@ -154,30 +131,49 @@ export default function AdminPage() {
 
             <main className="max-w-7xl mx-auto px-4 py-8">
                 {/* settings */}
-                <div className="glass-card rounded-xl p-6 mb-8 space-y-4">
-                    <h3 className="font-bold text-lg">Site Settings</h3>
+                <div className="glass-card rounded-xl p-6 mb-8 space-y-5">
+                    <div className="flex items-center gap-2">
+                        <span className="material-symbols-outlined text-primary">settings</span>
+                        <h3 className="font-bold text-lg">Site Settings</h3>
+                    </div>
 
-                    <div className="flex items-center justify-between">
-                        <span>Registration Open</span>
-                        <button onClick={() => updateSettings('registrationEnabled', !settings.registrationEnabled)}>
-                            {settings.registrationEnabled ? '✅ ON' : '❌ OFF'}
+                    <div className="flex items-center justify-between py-2">
+                        <div>
+                            <p className="font-semibold text-sm">Registration</p>
+                            <p className="text-xs text-slate-500">{settings.registrationEnabled ? 'Users can register' : 'Registration is closed'}</p>
+                        </div>
+                        <button
+                            onClick={() => updateSetting('registrationEnabled', !settings.registrationEnabled)}
+                            className={`relative w-12 h-6 rounded-full transition-colors duration-200 ${settings.registrationEnabled ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-600'}`}
+                        >
+                            <div className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-md transition-transform duration-200 ${settings.registrationEnabled ? 'translate-x-6' : ''}`} />
                         </button>
                     </div>
 
-                    <div className="flex items-center justify-between">
-                        <span>Uploads Open</span>
-                        <button onClick={() => updateSettings('uploadEnabled', !settings.uploadEnabled)}>
-                            {settings.uploadEnabled ? '✅ ON' : '❌ OFF'}
+                    <div className="flex items-center justify-between py-2">
+                        <div>
+                            <p className="font-semibold text-sm">Uploads</p>
+                            <p className="text-xs text-slate-500">{settings.uploadEnabled ? 'Users can upload photos' : 'Uploads are paused'}</p>
+                        </div>
+                        <button
+                            onClick={() => updateSetting('uploadEnabled', !settings.uploadEnabled)}
+                            className={`relative w-12 h-6 rounded-full transition-colors duration-200 ${settings.uploadEnabled ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-600'}`}
+                        >
+                            <div className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-md transition-transform duration-200 ${settings.uploadEnabled ? 'translate-x-6' : ''}`} />
                         </button>
                     </div>
 
-                    <div className="flex items-center justify-between">
-                        <span>Upload Limit Per User</span>
+                    <div className="flex items-center justify-between py-2">
+                        <div>
+                            <p className="font-semibold text-sm">Upload Limit Per User</p>
+                            <p className="text-xs text-slate-500">Maximum photos per IP address</p>
+                        </div>
                         <input
                             type="number"
+                            min={1}
                             value={settings.uploadLimitPerUser}
-                            onChange={(e) => updateSettings('uploadLimitPerUser', parseInt(e.target.value) || 4)}
-                            className="w-20 bg-slate-100 dark:bg-white/10 rounded-lg px-3 py-2 text-center"
+                            onChange={(e) => updateSetting('uploadLimitPerUser', parseInt(e.target.value) || 4)}
+                            className="w-20 bg-slate-100 dark:bg-white/10 rounded-lg px-3 py-2 text-center font-bold text-sm outline-none focus:ring-2 focus:ring-primary/30 transition-all"
                         />
                     </div>
                 </div>

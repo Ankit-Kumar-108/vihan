@@ -5,8 +5,8 @@ import { useState } from 'react';
 
 function MenuLink({ href, icon, label, color = "text-inherit", onClick }: any) {
   return (
-    <Link 
-      href={href} 
+    <Link
+      href={href}
       onClick={onClick}
       className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200"
     >
@@ -21,14 +21,12 @@ export default function Nav() {
 
   const [menuOpen, setMenuOpen] = useState(false)
   return (
-    <header className="sticky top-0 z-40 w-full dark:bg-black/40 bg-primary/10 backdrop-blur-[5px] border-b-0 border-b-[#482336]/50">
+    <header className="sticky top-0 z-40 w-full dark:bg-black/40 bg-primary/10 backdrop-blur-xl border-b-0 border-b-[#482336]/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <Link href={"/"}>
             <div className="flex items-center gap-3">
-              <div className="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
-                <span className="material-symbols-outlined">bolt</span>
-              </div>
+              <img src="/logo/logo.JPG" alt="RGI" className="size-8 rounded-lg" />
               <div className="flex gap-1.5 ">
                 <h2 className="text-slate-900 dark:text-white sm:text-2xl text-lg font-extrabold tracking-tight">Vihaan 26</h2>
                 <span className='lg:hidden'>
@@ -74,7 +72,7 @@ export default function Nav() {
                 </div>
               </div>
               <div className={`${menuOpen ? "flex" : "hidden"} w-dvw h-dvh z-40 absolute -right-4 top-14`}
-              onClick={() => setMenuOpen(!menuOpen)}
+                onClick={() => setMenuOpen(!menuOpen)}
               ></div>
             </button>
           </div>

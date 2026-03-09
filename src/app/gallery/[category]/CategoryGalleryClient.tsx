@@ -1,28 +1,25 @@
 "use client"
 import { useState } from 'react'
-import Link from 'next/link'
-import { FetchGalleryImg } from './fetchGalleryImg'
+import { FetchGalleryImgFullRes } from '../fetchGalleryImg'
 
 interface Photo {
     id: string;
+    fullUrl?: string;
     thumbnailUrl: string;
     url?: string;
-    eventName?: string;
     category?: string;
     uploaderName?: string;
+    eventName?: string;
     [key: string]: unknown;
 }
 
-interface GallerySectionProps {
-    title: string;
-    accentColor: string;
+interface Props {
     category: string;
     initialPhotos: Photo[];
     initialLastId: string | null;
-    cardbg: string | null;
 }
 
-export default function GallerySection({ title, accentColor, category, initialPhotos, initialLastId, cardbg }: GallerySectionProps) {
+export default function CategoryGalleryClient({ category, initialPhotos, initialLastId }: Props) {
     const [photos, setPhotos] = useState<Photo[]>(initialPhotos)
     const [lastId, setLastId] = useState<string | null>(initialLastId)
     const [loading, setLoading] = useState(false)
@@ -31,15 +28,15 @@ export default function GallerySection({ title, accentColor, category, initialPh
     const handleLoadMore = async () => {
         if (!lastId || loading) return
         setLoading(true)
-        const result = await FetchGalleryImg(category, lastId)
-        setPhotos((prev) => [...prev, ...result.photos])
+        const result = await FetchGalleryImgFullRes(category, lastId)
+        setPhotos(prev => [...prev, ...result.photos])
         setLastId(result.lastId)
         setLoading(false)
     }
 
     const handleDownload = async (photo: Photo) => {
         try {
-            const url = (photo.url || photo.thumbnailUrl) as string;
+            const url = photo.fullUrl || photo.url || photo.thumbnailUrl;
             const res = await fetch(url);
             const blob = await res.blob();
             const a = document.createElement('a');
@@ -48,64 +45,56 @@ export default function GallerySection({ title, accentColor, category, initialPh
             a.click();
             URL.revokeObjectURL(a.href);
         } catch {
-            // Fallback: open in new tab
-            window.open(photo.url || photo.thumbnailUrl, '_blank');
+            window.open(photo.fullUrl || photo.url || photo.thumbnailUrl, '_blank');
         }
     }
 
     return (
-        <section className={`w-full p-4 sm:p-6 ${cardbg}`}>
-            <div className="flex items-center gap-3 mb-4 sm:mb-6 pr-4 sm:pr-10">
-                <div className={`h-6 sm:h-8 w-1.5 rounded-full ${accentColor}`} />
-                <h2 className="text-[15px] sm:text-xl font-bold text-slate-900 dark:text-white">{title}</h2>
-                <Link
-                    href={`/gallery/${encodeURIComponent(category)}`}
-                    className="ml-auto text-sm font-bold text-primary hover:text-primary-dark flex items-center gap-1"
-                >
-                    View All <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                </Link>
-            </div>
-
+        <>
             {photos.length === 0 ? (
-                <p className="text-slate-400 text-sm py-10 text-center">No photos yet in this category.</p>
+                <div className="text-center py-20">
+                    <span className="material-symbols-outlined text-5xl text-slate-300 dark:text-slate-700 mb-4 block">photo_library</span>
+                    <p className="text-slate-500 font-bold">No photos yet in this category.</p>
+                    <p className="text-sm text-slate-400 mt-1">Check back later!</p>
+                </div>
             ) : (
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 auto-rows-[250px] sm:auto-rows-[300px] md:auto-rows-[350px]">
+                <div className="columns-2 sm:columns-3 lg:columns-4 gap-3 space-y-3">
                     {photos.map((photo) => (
                         <div
                             key={photo.id}
                             onClick={() => setSelectedPhoto(photo)}
-                            className="relative rounded-2xl overflow-hidden group cursor-pointer shadow-md hover:shadow-xl transition-all duration-300"
+                            className="break-inside-avoid rounded-2xl overflow-hidden group cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 relative"
                         >
-                            <div
-                                className="absolute inset-0 bg-cover bg-top transition-transform duration-500 group-hover:scale-110"
-                                style={{ backgroundImage: `url('${photo.thumbnailUrl}')` }}
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                                src={photo.thumbnailUrl}
+                                alt={photo.eventName ?? 'Vihaan Event'}
+                                loading="lazy"
+                                className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
                             />
-                            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
-                            <div className="absolute bottom-0 left-0 p-4 sm:p-5 w-full translate-y-2 group-hover:translate-y-0 transition-transform">
-                                <h3 className="text-white text-md sm:text-xl font-bold">
-                                    {photo.eventName ?? 'Vihaan Event'}
-                                </h3>
-                                <p className="text-slate-300 text-xs sm:text-sm mt-1 opacity-0 group-hover:opacity-100 transition-opacity delay-75">
-                                    {photo.category ?? 'Highlight moment'}
-                                </p>
+                            {/* Hover overlay */}
+                            <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            <div className="absolute bottom-0 left-0 p-3 sm:p-4 w-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <p className="text-white text-sm font-bold truncate">{photo.uploaderName ?? 'Photographer'}</p>
+                                <p className="text-white/60 text-xs">{photo.category}</p>
                             </div>
                         </div>
                     ))}
                 </div>
             )}
 
-            {/* Load More button at bottom */}
+            {/* Load More */}
             {lastId && (
-                <div className="text-center mt-6">
+                <div className="text-center mt-10">
                     <button
                         onClick={handleLoadMore}
                         disabled={loading}
-                        className="px-8 py-3 rounded-full bg-primary/10 text-primary font-bold text-sm hover:bg-primary/20 transition-colors disabled:opacity-50 inline-flex items-center gap-2"
+                        className="px-8 py-3.5 rounded-full bg-primary/10 text-primary font-bold text-sm hover:bg-primary/20 transition-colors disabled:opacity-50 inline-flex items-center gap-2"
                     >
                         {loading ? (
                             <><span className="material-symbols-outlined text-sm animate-spin">sync</span> Loading...</>
                         ) : (
-                            <><span className="material-symbols-outlined text-sm">expand_more</span> Load More</>
+                            <><span className="material-symbols-outlined text-sm">expand_more</span> Load More Photos</>
                         )}
                     </button>
                 </div>
@@ -119,7 +108,7 @@ export default function GallerySection({ title, accentColor, category, initialPh
                 >
                     <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
                     <div
-                        className="relative max-w-4xl w-full max-h-[90vh] flex flex-col items-center animate-fade-in"
+                        className="relative max-w-5xl w-full max-h-[90vh] flex flex-col items-center animate-fade-in"
                         onClick={e => e.stopPropagation()}
                     >
                         {/* Close button */}
@@ -130,10 +119,10 @@ export default function GallerySection({ title, accentColor, category, initialPh
                             <span className="material-symbols-outlined">close</span>
                         </button>
 
-                        {/* Image */}
+                        {/* Full-res image */}
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                            src={selectedPhoto.url || selectedPhoto.thumbnailUrl}
+                            src={selectedPhoto.fullUrl || selectedPhoto.url || selectedPhoto.thumbnailUrl}
                             alt={selectedPhoto.eventName ?? 'Vihaan Event'}
                             className="max-h-[75vh] w-auto max-w-full object-contain rounded-2xl shadow-2xl"
                         />
@@ -143,7 +132,7 @@ export default function GallerySection({ title, accentColor, category, initialPh
                             <div className="text-white text-sm font-medium">
                                 <span className="font-bold">{selectedPhoto.category}</span>
                                 {selectedPhoto.uploaderName && (
-                                    <span className="text-white/60 ml-2">by {selectedPhoto.uploaderName}</span>
+                                    <span className="text-white/60 ml-2">by {selectedPhoto.uploaderName as string}</span>
                                 )}
                             </div>
                             <button
@@ -157,6 +146,6 @@ export default function GallerySection({ title, accentColor, category, initialPh
                     </div>
                 </div>
             )}
-        </section>
+        </>
     )
 }
