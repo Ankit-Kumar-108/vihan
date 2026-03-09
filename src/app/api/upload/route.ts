@@ -20,14 +20,24 @@ export async function GET() {
         const session = await getServerSession(authOptions);
 
         const isAdmin = session?.user?.email === process.env.ADMIN_EMAIL;
-        const UPLOAD_LIMIT = isAdmin ? 200 : 4;
+        // const UPLOAD_LIMIT = isAdmin ? 200 : 4;
+
+        const settingsDoc = await db.collection('config').doc('siteSettings').get();
+        const settings = settingsDoc.data();
+        
+        if(!isAdmin && settings?.uploadEnabled ===false){
+            return NextResponse.json({error:"Uploads are currently Disabled", enabled: false}, {status:403})
+        }
+
+        const UPLOAD_LIMIT = isAdmin? 999 : (settings?.uploadLimitPerUser ?? 4)
+        
         const ip = await getClientIp();
         const existing = await db.collection('submissions')
             .where('uploaderIp', '==', ip)
             .get();
 
         const remaining = Math.max(0, UPLOAD_LIMIT - existing.size);
-        return NextResponse.json({ remaining, limit: UPLOAD_LIMIT });
+        return NextResponse.json({ remaining, limit: UPLOAD_LIMIT, enabled: true });
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
@@ -39,7 +49,15 @@ export async function POST(req: Request) {
         const session = await getServerSession(authOptions);
 
         const isAdmin = session?.user?.email === process.env.ADMIN_EMAIL;
-        const UPLOAD_LIMIT = isAdmin ? 200 : 4;
+        // const UPLOAD_LIMIT = isAdmin ? 200 : 4;
+        const settingsDoc = await db.collection('config').doc('siteSettings').get();
+        const settings = settingsDoc.data();
+        
+        if(!isAdmin && settings?.uploadEnabled ===false){
+            return NextResponse.json({error:"Uploads are currently Disabled", enabled: false}, {status:403})
+        }
+
+        const UPLOAD_LIMIT = isAdmin? 999 : (settings?.uploadLimitPerUser ?? 4)
         const { url, cloudyId, category, uploaderName, fileName } = await req.json();
 
         if (!url || !cloudyId) {

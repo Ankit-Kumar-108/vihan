@@ -2,6 +2,7 @@
 import Nav from '../components/nav/nav';
 import Footer from '../components/footer/footer';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 export default function RegisterPage() {
     const [formData, setFormData] = useState({
@@ -16,8 +17,9 @@ export default function RegisterPage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState('');
+    const [isToggle, setIsToggle] = useState(true)
 
-    
+
     useEffect(() => {
         if (isSuccess) {
             const timer = setTimeout(() => {
@@ -92,7 +94,7 @@ export default function RegisterPage() {
             {successOverlay}
             {/* Header Section */}
             <Nav />
-            <main className="pt-32 pb-20 px-4">
+            <main className="pt-32 pb-20 px-4 relative">
                 <div className="max-w-4xl mx-auto">
                     {/* Welcome Header */}
                     <div className="text-center mb-12">
@@ -306,6 +308,7 @@ export default function RegisterPage() {
                                 </div>
                                 <div className="flex gap-4 w-full md:w-auto">
                                     <button
+                                        disabled={isToggle}
                                         className="flex-1 md:flex-none bg-primary hover:bg-primary/90 text-white px-12 py-4 rounded-full font-bold shadow-[0_0_20px_rgba(157,54,247,0.3)] transition-all transform hover:-translate-y-1" type="submit">
                                         {isSubmitting ? 'Submitting...' : 'Submit'}
                                     </button>
@@ -314,6 +317,43 @@ export default function RegisterPage() {
                         </form>
                     </div>
                 </div>
+                {isToggle && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm bg-black/20">
+                        <div className="relative w-full max-w-lg overflow-hidden rounded-3xl border border-slate-400/20 bg-background-light/80 p-8 shadow-2xl backdrop-blur-md dark:border-slate-100/10 dark:bg-background-dark/80">
+
+                            {/* Decorative background glow */}
+                            <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-yellow-500/10 blur-3xl" />
+
+                            <div className="relative">
+                                <h2 className="text-center text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                                    Registration has closed for <br />
+                                    <span className="bg-linear-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+                                        {new Date().getFullYear()}
+                                    </span>
+                                </h2>
+
+                                <button className="ml-auto mt-2 block text-xs font-medium text-slate-500 hover:text-yellow-600 dark:text-slate-400 dark:hover:text-yellow-400 transition-colors">
+                                    Contact Admin →
+                                </button>
+                            </div>
+
+                            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:justify-center">
+                                <Link
+                                    href="/"
+                                    className="flex-1 rounded-xl bg-slate-900 px-6 py-3 text-center text-sm font-semibold text-white transition-all hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-slate-200"
+                                >
+                                    Back Home
+                                </Link>
+                                <Link
+                                    href="/gallery"
+                                    className="flex-1 rounded-xl border border-slate-200 bg-white/50 px-6 py-3 text-center text-sm font-semibold text-slate-700 transition-all hover:bg-slate-50 dark:border-slate-700 dark:bg-transparent dark:text-slate-200 dark:hover:bg-slate-800"
+                                >
+                                    To Gallery
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </main>
             <Footer />
         </div>

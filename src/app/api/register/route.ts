@@ -1,10 +1,12 @@
 import { NextResponse, NextRequest } from "next/server";
 import { appendToSheet } from "@/lib/sheet";
 import sendConfirmationEmail from "@/lib/mailer";
+impoer
 
 
 export async function POST(req: NextRequest) {
     try {
+        const settingDoc = await db.
         const { name, email, enrollment, phone, department, event, teamMembers } = await req.json();
 
         if (!name || !email || !enrollment || !phone || !department || !event || !teamMembers) {

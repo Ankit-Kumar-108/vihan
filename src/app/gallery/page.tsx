@@ -5,12 +5,12 @@ import GallerySection from './GallerySection'
 
 export default async function Gallery() {
   // Fetch initial data for each category on the server — no useEffect, no loading state
-  const [danceResult, musicResult, sportResult] = await Promise.all([
+  const [danceResult, musicResult, sportResult, technicalResult, fashionResult] = await Promise.all([
     FetchGalleryImg('Dance'),
-    FetchGalleryImg('Song'),
+    FetchGalleryImg('Singing'),
     FetchGalleryImg('Sports'),
-    // FetchGalleryImg('Technical'),
-    // FetchGalleryImg('Fashion')
+    FetchGalleryImg('Technical'),
+    FetchGalleryImg('Fashion')
   ])
 
   return (
@@ -57,7 +57,7 @@ export default async function Gallery() {
         <GallerySection
           title="Dance Off Highlights"
           accentColor="bg-secondary-blue"
-          category="Dance" 
+          category="Dance"
           cardbg="transparent"
           initialPhotos={danceResult.photos}
           initialLastId={danceResult.lastId}
@@ -104,13 +104,32 @@ export default async function Gallery() {
 
         {/* Music & Debate Section — client component for load-more interactivity */}
         <GallerySection
-         cardbg="transparent"
+          cardbg="transparent"
           title="Singing"
           accentColor="bg-slate-800 dark:bg-slate-200"
           category="Singing"
           initialPhotos={musicResult.photos}
           initialLastId={musicResult.lastId}
         />
+        {/* Fashion Widset */}
+        <GallerySection
+          cardbg="transparent"
+          title="Fashion"
+          accentColor="bg-slate-800 dark:bg-slate-200"
+          category="Fashion"
+          initialPhotos={fashionResult.photos}
+          initialLastId={fashionResult.lastId}
+        />
+        {/* Technical widset */}
+        <GallerySection
+          cardbg="transparent"
+          title="Technical"
+          accentColor="bg-slate-800 dark:bg-slate-200"
+          category="Technical"
+          initialPhotos={technicalResult.photos}
+          initialLastId={technicalResult.lastId}
+        />
+
       </main>
 
       {/* Footer */}
