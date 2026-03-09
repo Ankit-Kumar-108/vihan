@@ -28,7 +28,7 @@ export default function Nav() {
             <div className="flex items-center gap-3">
               <img src="/logo/logo.JPG" alt="RGI" className="size-8 rounded-lg" />
               <div className="flex gap-1.5 ">
-                <h2 className="text-slate-900 dark:text-white sm:text-2xl text-lg font-extrabold tracking-tight">Vihaan 26</h2>
+                <h2 className="text-slate-900 dark:text-white sm:text-2xl text-lg font-extrabold tracking-tight">Vihan 26</h2>
                 <span className='lg:hidden'>
                   <h2 className="text-[10px] -mt-1.5 text-transparent bg-clip-text font-bold bg-linear-to-r from-primary to-secondary-accent">Organised By RGI</h2>
                 </span>
