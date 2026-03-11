@@ -42,7 +42,7 @@ export default function EventsShowcase() {
                 {events.map((event) => (
                     <div
                         key={event.name}
-                        className={`group relative overflow-hidden rounded-[2rem] bg-linear-to-br ${event.gradient} p-8 flex flex-col items-center text-center transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_12px_40px_rgba(0,0,0,0.3)]`}
+                        className={`group relative overflow-hidden rounded-2xl bg-linear-to-br ${event.gradient} p-8 flex flex-col items-center text-center transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_12px_40px_rgba(0,0,0,0.3)]`}
                     >
                         {/* Decorative circles */}
                         <div className="absolute -top-8 -right-8 w-28 h-28 rounded-full bg-white/15 group-hover:scale-160 transition-transform duration-500" />

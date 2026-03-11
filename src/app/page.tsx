@@ -40,12 +40,12 @@ export default function VihaanFestival() {
               </div>
 
               {/* Hero Video */}
-              <div className="flex-1 w-full max-w-[320px] sm:max-w-[360px] md:max-w-[400px] lg:max-w-[420px] xl:max-w-[460px] mx-auto lg:mx-0 relative group perspective-1000">
-                <div className="absolute inset-0 bg-linear-to-r from-secondary-accent via-primary to-secondary-accent rounded-[2.5rem] opacity-50 blur-2xl group-hover:opacity-70 transition-opacity duration-500"></div>
-                <div className="relative rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl bg-[#1a0c13] aspect-3/4 rotate-y-6 hover:rotate-0 transition-all duration-500 ease-out">
+              <div className="flex-1 w-full max-w-[320px] sm:max-w-90 md:max-w-100 lg:max-w-105 xl:max-w-115 mx-auto lg:mx-0 relative group perspective-1000">
+                <div className="absolute inset-0 bg-linear-to-r from-secondary-accent via-primary to-secondary-accent rounded-2xl opacity-50 blur-2xl group-hover:opacity-70 transition-opacity duration-500"></div>
+                <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-[#1a0c13] aspect-3/4 rotate-y-6 hover:rotate-0 transition-all duration-500 ease-out">
                   <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent z-10 pointer-events-none"></div>
                   <video
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-fill"
                     loop
                     muted
                     autoPlay
@@ -67,7 +67,7 @@ export default function VihaanFestival() {
               </div>
             </div>
           </section>
-          {/* Registration CTA */}
+          {/* Registration */}
           <section className="relative z-10 py-12 px-4 md:px-8 max-w-7xl mx-auto">
             <div className="glass-card rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
               <div>
@@ -101,13 +101,16 @@ export default function VihaanFestival() {
                 { href: 'events/Technical-Winner', icon: 'campaign', name: 'Technical', count: '4 Events', gradient: 'from-purple-600 via-purple-400 to-purple-200' }
               ].map((cat) => (
                 <Link key={cat.name} href={cat.href}>
-                  <div className={`group relative overflow-hidden rounded-2xl h-44 bg-linear-to-br ${cat.gradient} cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)]`}>
+                  <div className={`group relative overflow-hidden rounded-2xl h-87 bg-linear-to-br ${cat.gradient} cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)]`}>
                     {/* Decorative circles */}
                     <div className="absolute -top-8 -right-8 w-28 h-28 rounded-full bg-white/10 group-hover:scale-125 transition-transform duration-500" />
                     <div className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full bg-white/10 group-hover:scale-150 transition-transform duration-700" />
                     <div className="absolute top-1/2 left-1/2 w-40 h-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors duration-500" />
 
-                    <div className="relative h-full flex flex-col justify-between p-5">
+                    <img src="/images/Frame.png" alt="Frame image" className="absolute w-full h-full object-cover" />
+                    <div className="absolute text-8xl top-[35%] left-[38%] font-bold">?</div>
+                    {/* <div className="relative h-full flex flex-col justify-between p-5">
+                      
                       <div className="flex items-start justify-between">
                         <div className="h-12 w-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/30 transition-colors">
                           <span className="material-symbols-outlined text-white text-2xl">{cat.icon}</span>
@@ -118,7 +121,7 @@ export default function VihaanFestival() {
                         <h3 className="text-white font-black text-xl mb-0.5">{cat.name}</h3>
                         <p className="text-white/60 text-xs font-semibold">{cat.count}</p>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </Link>
               ))}
@@ -215,7 +218,7 @@ export default function VihaanFestival() {
                 ></div>
                 <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-80 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="absolute bottom-0 left-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                  <span className="bg-violet-600 text-white text-xs font-bold px-2 py-1 rounded-md mb-2 inline-block">Fashion</span>
+                  <span className="bg-violet-600 text-white text-xs font-bold px-2 py-1 rounded-md mb-2 inline-block">Tech</span>
                   <h3 className="text-white text-lg font-bold">Where innovation meets human inspiration</h3>
                 </div>
               </Link>

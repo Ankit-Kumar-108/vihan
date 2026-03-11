@@ -20,7 +20,7 @@ export default function QRUploadSection() {
 
     return (
         <section id="share-photos" className="relative z-10 py-24 px-4 md:px-8 max-w-7xl mx-auto ">
-            <div className="relative rounded-[2rem] overflow-hidden bg-white dark:bg-transparent shadow-[0px_15px_10px_-3px_rgba(0,0,0,0.1)] hover:shadow-[0px_15px_10px_-3px_rgba(0,0,0,0.2)] trnasition-all duration-200 hover:-translate-y-2.5">
+            <div className="relative rounded-2xl overflow-hidden bg-white dark:bg-transparent shadow-[0px_15px_10px_-3px_rgba(0,0,0,0.1)] hover:shadow-[0px_15px_10px_-3px_rgba(0,0,0,0.2)] trnasition-all duration-200 hover:-translate-y-2.5">
                 {/* Gradient background */}
                 <div className="absolute inset-0 dark:bg-linear-to-br dark:from-primary/20 dark:via-background-dark dark:to-secondary-accent/20" />
                 <div className="absolute inset-0 bg-grid-pattern opacity-30" />
@@ -70,7 +70,7 @@ export default function QRUploadSection() {
                         <div className="shrink-0">
                             <div className="relative group">
                                 {/* Glow Ring */}
-                                <div className="absolute -inset-4 bg-linear-to-r from-secondary-accent via-primary to-secondary-accent rounded-[2rem] opacity-40 blur-xl group-hover:opacity-60 transition-opacity duration-500" />
+                                <div className="absolute -inset-4 bg-linear-to-r from-secondary-accent via-primary to-secondary-accent rounded-2xl opacity-40 blur-xl group-hover:opacity-60 transition-opacity duration-500" />
 
                                 <Link href={"/upload"}>
                                 <div className="relative glass-card rounded-3xl p-8 text-center border-white/10">

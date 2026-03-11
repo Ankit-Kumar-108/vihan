@@ -21,16 +21,16 @@ export default function Nav() {
 
   const [menuOpen, setMenuOpen] = useState(false)
   return (
-    <header className="sticky top-0 z-40 w-full dark:bg-black/40 bg-primary/10 backdrop-blur-xl border-b-0 border-b-[#482336]/50">
+    <header className="sticky top-0 z-40 w-full dark:bg-black/40 bg-primary/10 backdrop-blur-md border-b-0 border-b-[#482336]/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <Link href={"/"}>
             <div className="flex items-center gap-3">
-              <img src="/logo/logo.png" alt="RGI" className="size-8 rounded-lg" />
+              <img src="/logo/logo.png" alt="RGI" className="size-8 md:size-12 rounded-full" />
               <div className="flex gap-1.5 ">
-                <h2 className="text-slate-900 dark:text-white sm:text-2xl text-lg font-extrabold tracking-tight">Vihan 26</h2>
+                <h2 className="text-slate-900 dark:text-white text-md md:text-lg font-extrabold tracking-tight">Vihan 2<span className='text-transparent bg-linear-to-b from-secondary-accent via-primary to-secondary-accent bg-clip-text'>K</span>26</h2>
                 <span className='lg:hidden'>
-                  <h2 className="text-[10px] -mt-1.5 text-transparent bg-clip-text font-bold bg-linear-to-r from-primary to-secondary-accent">Organised By RGI</h2>
+                  <h2 className="text-[10px] -mt-1.5 text-transparent bg-clip-text font-bold bg-linear-to-r from-primary to-secondary-accent">By RGI</h2>
                 </span>
                 <span className='hidden lg:flex'>
                   <h2 className="text-[15px] -mt-2 text-transparent bg-clip-text font-bold bg-linear-to-r from-primary to-secondary-accent">Organised By Radharaman Group of Institutes</h2>
@@ -63,6 +63,7 @@ export default function Nav() {
                   <MenuLink href="/gallery" icon="grid_view" label="Gallery" />
                   <MenuLink href="/events" icon="event" label="Events" />
                   <MenuLink href="/upload" icon="cloud_upload" label="Upload Image" color="text-blue-500" />
+                  <MenuLink href="/register" icon="login" label="Register" color="text-pink-500" />
                 </div>
                 <div className="flex flex-col pt-2">
                   <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">
