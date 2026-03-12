@@ -3,7 +3,7 @@ import React from 'react';
 
 const stats = [
     { icon: 'group', value: '1,000+', label: 'Attendees' },
-    { icon: 'festival', value: '10+', label: 'Events' },
+    { icon: 'festival', value: '35+', label: 'Events' },
     { icon: 'today', value: '3', label: 'Epic Days' },
     { icon: 'account_balance', value: '5+', label: 'Colleges' },
 ];
