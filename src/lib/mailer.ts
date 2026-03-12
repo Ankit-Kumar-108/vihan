@@ -24,7 +24,7 @@ export default async function sendConfirmationEmail(data: { name: string, email:
             attachments: [
                 {
                     filename: "logo.jpg",
-                    path: path.join(process.cwd(), "public", "logo", "logo.JPG"),
+                    path: path.join(process.cwd(), "public", "logo", "logo.png"),
                     cid: "college_logo",
                 },
             ],

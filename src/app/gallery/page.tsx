@@ -22,7 +22,7 @@ export default async function Gallery() {
         <section className="w-full px-3 sm:px-4 md:px-10 py-6 sm:py-8">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-5 sm:mb-6">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-              Vihaan <span className="text-primary">2026</span> Highlights
+              VIHAN <span className="text-primary">2026</span> Highlights
             </h1>
           </div>
           <div className="relative w-full rounded-2xl overflow-hidden group shadow-2xl shadow-primary/10">

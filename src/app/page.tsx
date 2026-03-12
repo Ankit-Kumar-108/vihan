@@ -7,7 +7,7 @@ import EventsShowcase from "./components/EventsShowcase";
 import Timeline from "./components/Timeline";
 import QRUploadSection from "./components/QRUploadSection";
 
-export default function VihaanFestival() {
+export default function VIHANFestival() {
   return (
     <>
       <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen flex flex-col transition-colors duration-300">
@@ -55,7 +55,7 @@ export default function VihaanFestival() {
                   <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 z-20">
                     <div className="glass-panel p-3 sm:p-4 rounded-xl flex items-center justify-between">
                       <div>
-                        <p className="text-primary text-xs font-bold uppercase mb-1">Vihan</p>
+                        <p className="text-primary text-xs font-bold uppercase mb-1">VIHAn</p>
                         <h3 className="text-white font-bold text-base sm:text-lg">Coming Soon</h3>
                       </div>
                       <button className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-slate-200 transition-colors shrink-0">
@@ -132,8 +132,8 @@ export default function VihaanFestival() {
           <section className="relative z-10 py-16 px-4 md:px-8 max-w-7xl mx-auto">
             <div className="flex items-end justify-between mb-10">
               <div>
-                <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-2">Vihaan Highlights</h2>
-                <p className="text-slate-500 dark:text-slate-400">Captured, best moments from Vihaan</p>
+                <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-2">VIHAN Highlights</h2>
+                <p className="text-slate-500 dark:text-slate-400">Captured, best moments from VIHAN</p>
               </div>
               <Link href={"/gallery"} className="hidden md:flex text-primary font-bold items-center gap-1 hover:gap-2 transition-all">
                 View Full Gallery <span className="material-symbols-outlined text-lg">arrow_forward</span>

@@ -28,7 +28,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         {/* Favicon */}
-        <link rel="icon" href="/logo/logo.JPG" />
+        <link rel="icon" href="/logo/logo.png" />
         {/* Google Material Symbols */}
         <link
           rel="stylesheet"

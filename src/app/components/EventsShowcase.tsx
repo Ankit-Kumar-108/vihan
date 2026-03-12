@@ -3,7 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 
 const events = [
-    { name: 'Music', icon: 'music_note', desc: 'Solo & Band performances', gradient: 'from-pink-600/80 via-rose-500/70 to-orange-400/80', tag: 'Cultural' },
+    { name: 'Music', icon: 'music_note', desc: 'Solo & Team performances', gradient: 'from-pink-600/80 via-rose-500/70 to-orange-400/80', tag: 'Cultural' },
     { name: 'Dance', icon: 'settings_accessibility', desc: 'Classical, Western & Hip-Hop', gradient: 'from-blue-600/80 via-indigo-500/70 to-violet-400/80', tag: 'Cultural' },
     { name: 'Debate', icon: 'record_voice_over', desc: 'English & Hindi debate', gradient: 'from-yellow-500/80 via-amber-500/70 to-orange-500/80', tag: 'Literary' },
     { name: 'Cricket', icon: 'sports_cricket', desc: 'T10 tournament', gradient: 'from-emerald-600/80 via-green-500/70 to-teal-400/80', tag: 'Sports' },

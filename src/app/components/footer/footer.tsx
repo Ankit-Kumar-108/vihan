@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
               <img src="/logo/logo.png" alt="RGI" className="size-10 rounded" />
-              <h3 className="text-slate-900 dark:text-white text-xl font-bold">Vihan 2K26</h3>
+              <h3 className="text-slate-900 dark:text-white text-xl font-bold">VIHAN 2K26</h3>
             </div>
             <p className="text-slate-500 max-w-sm mb-2">
               The annual cultural and technical festival organised by{' '}
