@@ -45,7 +45,7 @@ export default function QRUploadSection() {
 
                             <p className="text-slate-400 text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">
                                 Scan the QR code to upload your best event photos. Pick a category, select your pictures,
-                                and once approved they&apos;ll appear in the official Vihaan 2k26 gallery.
+                                and once approved they&apos;ll appear in the official VIHAN 2k26 gallery.
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start text-sm text-slate-500">

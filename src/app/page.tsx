@@ -6,8 +6,26 @@ import About from "./components/About";
 import EventsShowcase from "./components/EventsShowcase";
 import Timeline from "./components/Timeline";
 import QRUploadSection from "./components/QRUploadSection";
+import { useRef, useEffect } from "react";
 
 export default function VIHANFestival() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const isHover = useRef<boolean>(false);
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if(!container) return;
+
+    const scrollInterval = setInterval(() => {
+      if(!isHover.current){
+        container.scrollLeft +=1;
+        if(container.scrollLeft >= container.scrollWidth / 2){
+          container.scrollLeft = 0;
+        }
+      }
+    }, 20);
+    return () => clearInterval(scrollInterval);
+  }, []);
   return (
     <>
       <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen flex flex-col transition-colors duration-300">
@@ -31,11 +49,11 @@ export default function VIHANFestival() {
                   <span className="text-xs font-semibold text-slate-500 dark:text-slate-300 tracking-wide uppercase">Official Fest Landing</span>
                 </div>
                 <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-transparent bg-clip-text bg-linear-to-r from-slate-900 via-slate-700 to-slate-400 dark:from-white dark:via-slate-200 dark:to-slate-500 leading-[1.1] tracking-tight drop-shadow-lg">
-                  UNLEASH <br />
-                  <span className="text-transparent bg-clip-text bg-linear-to-r from-secondary-accent to-primary">THE ENERGY</span>
+                  CULTURE <br />
+                  <span className="text-transparent bg-clip-text bg-linear-to-r from-secondary-accent to-primary">ON THE MOVE</span>
                 </h1>
                 <p className="text-slate-600 dark:text-slate-400 text-lg md:text-xl max-w-2xl mx-auto lg:mx-0 font-medium leading-relaxed">
-                  The ultimate fusion of art, tech, and adrenaline. Join us for the biggest college festival of the year.
+                  Proudly presented by <span className="font-bold text-purple-500 dark:text-purple-400">RADHARAMAN GROUP OF INSTITUTES</span>, VIHAN is a spectacular celebration where creativity, innovation, and passion collide on one electrifying stage. With 20+ events spanning singing, dance, fashion, sports, and technology — experience fierce competition, unforgettable performances, and campus energy at its peak. This is where champions are made.
                 </p>
               </div>
 
@@ -87,41 +105,73 @@ export default function VIHANFestival() {
             </div>
           </section>
           {/* Category Section */}
-          <section className="relative z-10 py-12 px-4 md:px-8 max-w-7xl mx-auto">
+          <section className="relative z-10 py-12 px-4 md:px-8 max-w-7xl mx-auto overflow-hidden">
             <div className="p-3 mb-7">
               <h1 className="font-bold text-2xl md:text-5xl mb-3">Winners of Vihan 2026</h1>
               <p className="text-slate-500 dark:text-slate-400">Top of the Line</p>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                { href: 'events/Singing-Winner', icon: 'music_note', name: 'Singing', count: '8 Events', gradient: 'from-pink-600 via-rose-500 to-orange-400' },
-                { href: 'events/Dance-Winner', icon: 'settings_accessibility', name: 'Dance', count: '6 Events', gradient: 'from-blue-600 via-indigo-500 to-violet-400' },
-                { href: 'events/Sports-Winner', icon: 'sports_basketball', name: 'Sports', count: '12 Events', gradient: 'from-emerald-600 via-green-500 to-teal-400' },
-                { href: 'events/Fashion-Winner', icon: 'campaign', name: 'Fashion', count: '4 Events', gradient: 'from-amber-600 via-yellow-500 to-orange-400' },
-                { href: 'events/Technical-Winner', icon: 'campaign', name: 'Technical', count: '4 Events', gradient: 'from-purple-600 via-purple-400 to-purple-200' }
-              ].map((cat) => (
-                <Link key={cat.name} href={cat.href}>
-                  <div className={`group relative overflow-hidden rounded-2xl h-87 bg-linear-to-br ${cat.gradient} cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)]`}>
-                    {/* Decorative circles */}
-                    <div className="absolute -top-8 -right-8 w-28 h-28 rounded-full bg-white/10 group-hover:scale-125 transition-transform duration-500" />
-                    <div className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full bg-white/10 group-hover:scale-150 transition-transform duration-700" />
-                    <div className="absolute top-1/2 left-1/2 w-40 h-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors duration-500" />
+            <div 
+            ref={scrollRef}
+            onMouseEnter={() => isHover.current = true}
+            onMouseLeave={() => isHover.current = false}
+            className="flex gap-7 overflow-x-scroll no-scrollbar">
 
-                    <img src="/images/Frame.png" alt="Frame image" className="absolute w-full h-full object-cover" />
-                    <div className="absolute text-8xl top-[35%] left-[38%] font-bold">?</div>
-                    {/* <div className="relative h-full flex flex-col justify-between p-5">
-                      
-                      <div className="flex items-start justify-between">
-                        <div className="h-12 w-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/30 transition-colors">
-                          <span className="material-symbols-outlined text-white text-2xl">{cat.icon}</span>
+              {/* Block 1 (Original) */}
+              {[
+                { href: 'events/Singing-Winner', icon: 'music_note', category: 'Singing', name: 'To be announced' },
+                { href: 'events/Dance-Winner', icon: 'settings_accessibility', category: 'Dance', name: 'To be announced' },
+                { href: 'events/Sports-Winner', icon: 'sports_basketball', category: 'Sports', name: 'To be announced' },
+                { href: 'events/FashionShow-Winner', icon: 'campaign', category: 'Fashion', name: 'To be announced' },
+                { href: 'events/Technical-Winner', icon: 'campaign', category: 'Technical', name: 'To be announced' },
+                { href: 'events/Mehandi-winner', icon: 'campaign', category: 'Arts Villa', name: 'To be announced' },
+                { href: 'events/Cricket-Winner', icon: 'campaign', category: 'Debate', name: 'To be announced' },
+                { href: 'events/Drama-Winner', icon: 'campaign', category: 'Cultural', name: 'To be announced' },
+              ].map((cat) => (
+                <Link key={cat.category} href={cat.href}>
+                  <div className={`z-20 group relative rounded-2xl h-67 w-52 cursor-pointer transition-all shrink-0 duration-300 hover:scale-[1.03] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)]`}>
+                    <div className={`absolute z-10 bg-linear-to-br h-57 w-47 left-2 top-4 bg-white dark:bg-black`}></div>
+                    <img src="/images/Frame.png" alt="Frame Image" className="absolute w-full h-full z-40 object-cover" />
+                    <div className="absolute z-10 text-7xl top-[30%] left-[38%] font-bold">
+                      ?
+                    </div>
+                    <div className="absolute bottom-11 left-10 z-10">
+                      <div className="font-bold ">
+                        {cat.name}
+                      </div>
+                        <div className="font-bold text-purple-400">
+                          {cat.category}
                         </div>
-                        <span className="material-symbols-outlined text-white/40 text-xl group-hover:text-white/80 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all">arrow_outward</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+
+              {/* Block 2 (The Copy for infinite scroll) */}
+              {[
+                { href: 'events/Singing-Winner', icon: 'music_note', category: 'Singing', name: 'To be announced' },
+                { href: 'events/Dance-Winner', icon: 'settings_accessibility', category: 'Dance', name: 'To be announced' },
+                { href: 'events/Sports-Winner', icon: 'sports_basketball', category: 'Sports', name: 'To be announced' },
+                { href: 'events/FashionShow-Winner', icon: 'campaign', category: 'Fashion', name: 'To be announced' },
+                { href: 'events/Technical-Winner', icon: 'campaign', category: 'Technical', name: 'To be announced' },
+                { href: 'events/Mehandi-winner', icon: 'campaign', category: 'Arts Villa', name: 'To be announced' },
+                { href: 'events/Cricket-Winner', icon: 'campaign', category: 'Debate', name: 'To be announced' },
+                { href: 'events/Drama-Winner', icon: 'campaign', category: 'Cultural', name: 'To be announced' },
+              ].map((cat) => (
+                <Link key={`${cat.category}-copy`} href={cat.href} aria-hidden="true">
+                  <div className={`z-20 group relative rounded-2xl h-67 w-52 cursor-pointer transition-all shrink-0 duration-300 hover:scale-[1.03] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)]`}>
+                    <div className={`absolute z-10 bg-linear-to-br h-57 w-47 left-2 top-4 bg-white dark:bg-black`}></div>
+                    <img src="/images/Frame.png" alt="Frame Image" className="absolute w-full h-full z-40 object-cover" />
+                    <div className="absolute z-10 text-7xl top-[30%] left-[38%] font-bold">
+                      ?
+                    </div>
+                    <div className="absolute bottom-11 left-10 z-10">
+                      <div className="font-bold ">
+                        {cat.name}
                       </div>
-                      <div>
-                        <h3 className="text-white font-black text-xl mb-0.5">{cat.name}</h3>
-                        <p className="text-white/60 text-xs font-semibold">{cat.count}</p>
-                      </div>
-                    </div> */}
+                        <div className="font-bold text-purple-400">
+                          {cat.category}
+                        </div>
+                    </div>
                   </div>
                 </Link>
               ))}

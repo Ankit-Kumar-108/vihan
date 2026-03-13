@@ -2,10 +2,10 @@
 import React from 'react';
 
 const stats = [
-    { icon: 'groups', value: '1,000+', label: 'Attendees' },
-    { icon: 'celebration', value: '10+', label: 'Events' },
-    { icon: 'calendar_month', value: '3', label: 'Epic Days' },
-    { icon: 'school', value: '5+', label: 'Colleges' },
+    { icon: 'group', value: '1,000+', label: 'Attendees' },
+    { icon: 'festival', value: '35+', label: 'Events' },
+    { icon: 'today', value: '3', label: 'Epic Days' },
+    { icon: 'account_balance', value: '5+', label: 'Colleges' },
 ];
 
 export default function About() {
@@ -25,13 +25,13 @@ export default function About() {
                         </span>
                     </h2>
                     <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed max-w-xl">
-                        Vihaan 2k26 is the annual cultural and technical festival organized by
-                        <strong className="text-slate-800 dark:text-slate-200"> Radharaman Group of Institutes</strong>.
+                        VIHAN 2k26 is the annual cultural and technical festival organized by
+                        <strong className="text-purple-500 dark:text-purple-400"> RADHARAMAN GROUP OF INSTITUTES</strong>.
                         From electrifying pro-nights to adrenaline-pumping sports, from intellectual debates to creative
                         art showcases — Vihaan is the ultimate celebration of youth, innovation, and energy.
                     </p>
                     <p className="text-slate-500 dark:text-slate-400 leading-relaxed">
-                        Over three thrilling days, students from 15+ colleges come together to compete, collaborate,
+                        Over three thrilling days, students from 4+ colleges come together to compete, collaborate,
                         and create memories that last a lifetime.
                     </p>
                 </div>

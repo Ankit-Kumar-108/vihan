@@ -4,6 +4,12 @@ import Footer from '../components/footer/footer';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSettings } from '@/hooks/useSettings';
+const subEventsMap: Record<string, string[]> = {
+    "Sports": ["Tug of War", "Badminton", "Carrom", "Chess", "Arm Wrestling", "Kho Kho", "Kabaddi", "Treasure Hunt", "Slow Bike Race", "Shot Put", "Sports Parade", "Lemon Spoon Race", "Volleyball", "Race (100M/ 400M)", "Gully Cricket"],
+    "Technical": ["Technical Presentation", "Painting", "Reels", "Extempore", "Debate", "Model Presentaion", "Photography/ College", "LAN Gaming", "Poster Making", "Quiz (General & Technical)"],
+    "Cultural": ["Singing (Solo And Duet)", "Mimicry", "Skit", "Dance (Solo And Group)", "Fashion Show", "Poetry Competation (Self Composed)"],
+    "Art Villa": ["Nail Painting", "Face Painting", "Mehandi", "Rangoli"]
+};
 
 export default function RegisterPage() {
     const { settings, loaded: settingsLoaded } = useSettings();
@@ -16,6 +22,7 @@ export default function RegisterPage() {
         phone: '',
         department: '',
         event: '',
+        subEvent: '',
     });
     const [teamMembers, setTeamMembers] = useState([{ name: '', enrollment: '' }]);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,7 +33,7 @@ export default function RegisterPage() {
         if (isSuccess) {
             const timer = setTimeout(() => {
                 setIsSuccess(false);
-                setFormData({ name: '', email: '', enrollment: '', phone: '', department: '', event: '' });
+                setFormData({ name: '', email: '', enrollment: '', phone: '', department: '', event: '', subEvent: '' });
                 setTeamMembers([{ name: '', enrollment: '' }]);
                 setError('');
             }, 5000);
@@ -45,6 +52,7 @@ export default function RegisterPage() {
                 },
                 body: JSON.stringify({
                     ...formData,
+                    event: formData.subEvent ? `${formData.event} / ${formData.subEvent}` : formData.event,
                     teamMembers: teamMembers.filter(m => m.name.trim() !== '' || m.enrollment.trim() !== ''),
                 }),
             });
@@ -52,8 +60,8 @@ export default function RegisterPage() {
             if (!response.ok) {
                 throw new Error(data.error || 'Network Issue');
             }
-            if (!formData.event) {
-                throw new Error('Please select an event');
+            if (!formData.event || !formData.subEvent) {
+                throw new Error('Please select both a category and a specific event');
             }
             setIsSuccess(true);
         } catch (error) {
@@ -223,46 +231,66 @@ export default function RegisterPage() {
 
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                     <div
-                                        onClick={() => setFormData({ ...formData, event: "Music" })}
+                                        onClick={() => setFormData({ ...formData, event: "Cultural", subEvent: "" })}
 
-                                        className={`bg-background-light dark:bg-background-dark p-4 rounded-2xl border border-slate-300 dark:border-white/15 cursor-pointer group active:scale-95 hover:bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20 duration-400 transition-all ${formData.event === "Music" ? `ring-2 ring-primary border border-primary bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20` : ``}`}>
-                                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 group-hover:bg-primary transition-colors duration-400 ${formData.event === "Music" ? `bg-primary` : `bg-primary/20`}`}>
-                                            <span className={`material-symbols-outlined group-hover:text-white ${formData.event === "Music" ? `text-white` : `text-primary`}`}>music_note</span>
+                                        className={`bg-background-light dark:bg-background-dark p-4 rounded-2xl border border-slate-300 dark:border-white/15 cursor-pointer group active:scale-95 hover:bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20 duration-400 transition-all ${formData.event === "Cultural" ? `ring-2 ring-primary border border-primary bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20` : ``}`}>
+                                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 group-hover:bg-primary transition-colors duration-400 ${formData.event === "Cultural" ? `bg-primary` : `bg-primary/20`}`}>
+                                            <span className={`material-symbols-outlined group-hover:text-white ${formData.event === "Cultural" ? `text-white` : `text-primary`}`}>theater_comedy</span>
                                         </div>
-                                        <h4 className="font-bold text-sm">Music</h4>
-                                        <p className="text-[10px] text-slate-400">Solo/Band</p>
+                                        <h4 className="font-bold text-sm">Cultural</h4>
+                                        <p className="text-[10px] text-slate-400">Dance/Music/Drama</p>
                                     </div>
 
                                     <div
-                                        onClick={() => setFormData({ ...formData, event: "Dance" })}
-                                        className={`bg-background-light dark:bg-background-dark p-4 rounded-2xl border border-slate-300 dark:border-white/15 cursor-pointer group active:scale-95 hover:bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20 duration-400 transition-all ${formData.event === "Dance" ? `ring-2 ring-primary border border-primary bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20` : ``}`}>
-                                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 group-hover:bg-blue-500 transition-colors duration-400 ${formData.event === "Dance" ? `bg-blue-500` : `bg-blue-500/20`}`}>
-                                            <span className={`material-symbols-outlined group-hover:text-white ${formData.event === "Dance" ? `text-white` : `text-blue-500`}`}>settings_accessibility</span>
+                                        onClick={() => setFormData({ ...formData, event: "Technical", subEvent: "" })}
+                                        className={`bg-background-light dark:bg-background-dark p-4 rounded-2xl border border-slate-300 dark:border-white/15 cursor-pointer group active:scale-95 hover:bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20 duration-400 transition-all ${formData.event === "Technical" ? `ring-2 ring-primary border border-primary bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20` : ``}`}>
+                                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 group-hover:bg-blue-500 transition-colors duration-400 ${formData.event === "Technical" ? `bg-blue-500` : `bg-blue-500/20`}`}>
+                                            <span className={`material-symbols-outlined group-hover:text-white ${formData.event === "Technical" ? `text-white` : `text-blue-500`}`}>terminal</span>
                                         </div>
-                                        <h4 className="font-bold text-sm">Dance</h4>
-                                        <p className="text-[10px] text-slate-400">Classical/Pop</p>
+                                        <h4 className="font-bold text-sm">Technical</h4>
+                                        <p className="text-[10px] text-slate-400">Coding/Gaming/Presentations</p>
                                     </div>
 
                                     <div
-                                        onClick={() => setFormData({ ...formData, event: "Sports" })}
+                                        onClick={() => setFormData({ ...formData, event: "Sports", subEvent: "" })}
                                         className={`bg-background-light dark:bg-background-dark p-4 rounded-2xl border border-slate-300 dark:border-white/15 cursor-pointer group active:scale-95 hover:bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20 duration-400 transition-all ${formData.event === "Sports" ? `ring-2 ring-primary border border-primary bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20` : ``}`}>
                                         <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 group-hover:bg-purple-500 transition-colors duration-400 ${formData.event === "Sports" ? `bg-purple-500` : `bg-purple-500/20`}`}>
-                                            <span className={`material-symbols-outlined group-hover:text-white ${formData.event === "Sports" ? `text-white` : `text-purple-500`}`}>sports_basketball</span>
+                                            <span className={`material-symbols-outlined group-hover:text-white ${formData.event === "Sports" ? `text-white` : `text-purple-500`}`}>emoji_events</span>
                                         </div>
                                         <h4 className="font-bold text-sm">Sports</h4>
-                                        <p className="text-[10px] text-slate-400">Indoor/Outdoor</p>
+                                        <p className="text-[10px] text-slate-400">Indoor/Outdoor/Athletics</p>
                                     </div>
 
                                     <div
-                                        onClick={() => setFormData({ ...formData, event: "Ramp Walk" })}
-                                        className={`bg-background-light dark:bg-background-dark p-4 rounded-2xl border border-slate-300 dark:border-white/15 cursor-pointer group active:scale-95 hover:bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20 duration-400 transition-all ${formData.event === "Ramp Walk" ? `ring-2 ring-primary border border-primary bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20` : ``}`}>
-                                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 group-hover:bg-yellow-500 transition-colors duration-400 ${formData.event === "Ramp Walk" ? `bg-yellow-500` : `bg-yellow-500/20`}`}>
-                                            <span className={`material-symbols-outlined group-hover:text-white ${formData.event === "Ramp Walk" ? `text-white` : `text-yellow-500`}`}>record_voice_over</span>
+                                        onClick={() => setFormData({ ...formData, event: "Art Villa", subEvent: "" })}
+                                        className={`bg-background-light dark:bg-background-dark p-4 rounded-2xl border border-slate-300 dark:border-white/15 cursor-pointer group active:scale-95 hover:bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20 duration-400 transition-all ${formData.event === "Art Villa" ? `ring-2 ring-primary border border-primary bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20` : ``}`}>
+                                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 group-hover:bg-yellow-500 transition-colors duration-400 ${formData.event === "Art Villa" ? `bg-yellow-500` : `bg-yellow-500/20`}`}>
+                                            <span className={`material-symbols-outlined group-hover:text-white ${formData.event === "Art Villa" ? `text-white` : `text-yellow-500`}`}>palette</span>
                                         </div>
-                                        <h4 className="font-bold text-sm">Ramp Walk</h4>
-                                        <p className="text-[10px] text-slate-400">Fashion</p>
+                                        <h4 className="font-bold text-sm">Art Villa</h4>
+                                        <p className="text-[10px] text-slate-400">Painting/Mehandi/Rangoli</p>
                                     </div>
                                 </div>
+
+                                {/* Sub-Event Dropdown */}
+                                {formData.event && (
+                                    <div className="mt-6 animate-[fadeIn_0.3s_ease-out]">
+                                        <label className="text-sm font-semibold text-slate-600 dark:text-slate-100 ml-1">
+                                            Choose Specific Event
+                                        </label>
+                                        <select
+                                            value={formData.subEvent}
+                                            onChange={(e) => setFormData({ ...formData, subEvent: e.target.value })}
+                                            required
+                                            className="w-full mt-2 bg-slate-100 dark:bg-background-dark/50 border border-slate-200 dark:border-white/10 rounded-2xl py-4 pl-4 pr-4 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-slate-900 dark:text-gray-400 appearance-none"
+                                        >
+                                            <option value="">Select Sub-Event...</option>
+                                            {subEventsMap[formData.event]?.map((sub) => (
+                                                <option key={sub} value={sub}>{sub}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                )}
                             </div>
 
                             {/* Step 3: Team Section */}
