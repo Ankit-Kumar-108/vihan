@@ -275,7 +275,7 @@ export default function VIHANFestival() {
 
             </div>
             <Link href={"/gallery"}>
-              <button className="md:hidden w-full bg-primary font-bold mt-6 py-3 rounded-xl border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+              <button className="md:hidden w-full bg-primary font-bold mt-6 py-3 rounded-xl border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-colors cursor-pointer">
                 View Full Gallery
               </button>
             </Link>

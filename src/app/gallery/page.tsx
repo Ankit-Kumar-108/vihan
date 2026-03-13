@@ -36,10 +36,10 @@ export default async function Gallery() {
             <div className="absolute inset-0 bg-linear-to-t from-background-dark/90 via-background-dark/20 to-transparent" />
             <div className="absolute bottom-0 left-0 w-full p-4 sm:p-6 md:p-8 lg:p-12">
               <div className="flex flex-wrap gap-2 sm:gap-3 mb-2 sm:mb-3">
-                <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-primary text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider">
+                <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-primary text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider hover:cursor-pointer hover:brightness-125">
                   Featured
                 </span>
-                <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider border border-white/10">
+                <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider border border-white/10 cursor-pointer hover:bg-slate-300/65">
                   Grand Finale
                 </span>
               </div>

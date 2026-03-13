@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import ThemeToggle from '../ThemeToggle';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 function MenuLink({ href, icon, label, color = "text-inherit", onClick }: any) {
   return (
@@ -20,6 +21,10 @@ function MenuLink({ href, icon, label, color = "text-inherit", onClick }: any) {
 export default function Nav() {
 
   const [menuOpen, setMenuOpen] = useState(false)
+  const pathName = usePathname();
+
+  const isActive = (path : string) => pathName === path;
+
   return (
     <header className="sticky top-0 z-40 w-full dark:bg-black/40 bg-primary/10 backdrop-blur-md border-b-0 border-b-[#482336]/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,18 +44,18 @@ export default function Nav() {
             </div>
           </Link>
           <nav className="hidden md:flex gap-8 items-center">
-            <Link className="text-slate-800 dark:text-slate-200 hover:text-primary transition-colors text-sm font-bold" href="/">Home</Link>
-            <Link className="text-slate-800 dark:text-slate-200 hover:text-primary transition-colors text-sm font-bold" href="/events">Events</Link>
-            <Link className="text-slate-800 dark:text-slate-200 hover:text-primary transition-colors text-sm font-bold" href="/gallery">Gallery</Link>
+            <Link className={`text-sm font-bold ${isActive('/') ? 'text-red-500' : 'text-slate-800 dark:text-slate-200 hover:text-primary'}`} href="/">Home</Link>
+            <Link className={`text-sm font-bold ${isActive('/events') ? 'text-red-500' : 'text-slate-800 dark:text-slate-200 hover:text-primary'}`} href="/events">Events</Link>
+            <Link className={`text-sm font-bold ${isActive('/gallery') ? 'text-red-500' : 'text-slate-800 dark:text-slate-200 hover:text-primary'}`} href="/gallery">Gallery</Link>
           </nav>
           <div className="flex items-center gap-4">
             <ThemeToggle />
-            <Link href="/register" className="hidden sm:flex items-center justify-center rounded-full h-10 px-6 bg-primary hover:bg-primary/90 text-white text-sm font-bold transition-all shadow-[0_0_15px_rgba(238,43,140,0.4)] hover:shadow-[0_0_25px_rgba(238,43,140,0.6)]">
+            <Link href="/register" className={`hidden sm:flex items-center justify-center rounded-full h-10 px-6 bg-primary hover:bg-primary/90 text-sm font-bold transition-all shadow-[0_0_15px_rgba(238,43,140,0.4)] hover:shadow-[0_0_25px_rgba(238,43,140,0.6)] ${isActive('/register') ? 'text-yellow-300/70' : 'text-white'}`}>
               Register Now
             </Link>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="relative md:hidden text-slate-800 dark:text-white p-2 focus:outline-none"
+              className="relative md:hidden text-slate-800 dark:text-white p-2 focus:outline-none cursor-pointer hover:bg-slate-100/5"
             >
               <span className="material-symbols-outlined text-3xl">
                 {menuOpen ? 'close' : 'menu'}
@@ -58,7 +63,7 @@ export default function Nav() {
 
               <div className={`${menuOpen ? "flex" : "hidden"} absolute right-0 top-14 w-56 flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl dark:border-slate-200/20 dark:bg-linear-to-br from-background-dark via-background-dark to-primary-dark z-50`}>
 
-                <div className="flex flex-col border-b border-slate-200 pb-2 dark:border-slate-200/20">
+                <div className="flex flex-col border-b border-slate-200 pb-2 dark:border-slate-200/20 ">
                   <MenuLink href="/" icon="home" label="Home" />
                   <MenuLink href="/gallery" icon="grid_view" label="Gallery" />
                   <MenuLink href="/events" icon="event" label="Events" />

@@ -100,7 +100,7 @@ export default function GallerySection({ title, accentColor, category, initialPh
                     <button
                         onClick={handleLoadMore}
                         disabled={loading}
-                        className="px-8 py-3 rounded-full bg-primary/10 text-primary font-bold text-sm hover:bg-primary/20 transition-colors disabled:opacity-50 inline-flex items-center gap-2"
+                        className="px-8 py-3 rounded-full bg-primary/10 text-primary font-bold text-sm hover:bg-primary/20 transition-colors disabled:opacity-50 inline-flex items-center gap-2 cursor-pointer"
                     >
                         {loading ? (
                             <><span className="material-symbols-outlined text-sm animate-spin">sync</span> Loading...</>
