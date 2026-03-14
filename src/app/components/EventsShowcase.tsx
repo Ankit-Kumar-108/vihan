@@ -1,29 +1,31 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-
-const events = [
-    {name: "Poster Making",poster: "/Poster/PosterMaking.jpeg" , gradient: 'from-violet-600 via-purple-500 to-fuchsia-400' },
-    { name: "Kho Kho", poster: "/Poster/kho-kho.jpeg", gradient: 'from-fuchsia-600 via-pink-500 to-rose-400' },
-
-    {name: "Model Making", poster: "/Poster/ModelMaking.jpeg", gradient: 'from-amber-500 via-yellow-500 to-lime-400' },
-
-    {name: "Fashion", poster:"/Poster/fashion.jpeg", gradient: 'from-pink-600 via-rose-500 to-orange-400' },
-
-    {name: "Research Paper", poster:"/Poster/researchPaper.jpeg", gradient: 'from-teal-600 via-emerald-500 to-green-400' },
-
-    {name: "Badminton", poster:"/Poster/badminton.jpeg", gradient: 'from-indigo-600 via-blue-500 to-cyan-400'},
-
-    {name: "Art Villa", poster:"/Poster/art-villa.jpeg", gradient: 'from-amber-500 via-yellow-500 to-lime-400' },
-];
+import { getPostersFromCloudinary } from '@/lib/getPoster';
 
 export default function EventsShowcase() {
+    // 1. We keep track of the loaded remote posters
+    const [remotePosters, setRemotePosters] = useState<{url: string, publicId: string}[]>([]);
+    const [loading, setLoading] = useState(true);
     const [selectedPoster, setSelectedPoster] = useState<string | null>(null);
+
+    // 2. Fetch the posters when the component loads
+    useEffect(() => {
+        async function fetchPosters() {
+            const urls = await getPostersFromCloudinary();
+            setRemotePosters(urls);
+            setLoading(false);
+        }
+        fetchPosters();
+    }, []);
+
+    // 3. Fallback gradient just in case a poster doesn't load
+    const fallbackGradient = 'from-violet-600 via-purple-500 to-fuchsia-400';
 
     return (
         <section id="all-events" className="relative z-10 py-20 px-4 md:px-8 max-w-7xl mx-auto">
-            {/* Header */}
-            <div className="text-center mb-14">
+            {/* Header ... (Keep your existing Header HTML here) */}
+             <div className="text-center mb-14">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary-accent/10 border border-secondary-accent/20 mb-4">
                     <span className="material-symbols-outlined text-secondary-accent text-sm">star</span>
                     <span className="text-xs font-bold text-secondary-accent tracking-wide uppercase">All Events Posters</span>
@@ -39,28 +41,41 @@ export default function EventsShowcase() {
                 </p>
             </div>
 
-            {/* Poster Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7">
-                {events.map((event) => (
-                    <div
-                        key={event.name}
-                        onClick={() => event.poster && setSelectedPoster(event.poster)}
-                        className={`cursor-pointer group aspect-3/4.5 relative overflow-hidden rounded-2xl p-8 flex flex-col items-center text-center transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_12px_40px_rgba(0,0,0,0.3)] bg-cover bg-top bg-no-repeat ${event.poster ? '' : `bg-linear-to-br ${event.gradient}`}`}
-                        style={event.poster ? { backgroundImage: `url(${event.poster})` } : undefined}
-                    >
+            {/* Loading State */}
+            {loading && (
+                <div className="text-center text-slate-500 py-10">
+                   <p className="animate-pulse">Loading amazing posters...</p>
+                </div>
+            )}
 
-                        {/* Register Button */}
-                        <Link 
-                            href={"/register"} 
-                            onClick={(e) => e.stopPropagation()}
-                            className="absolute right-1 top-1 bg-purple-500/50 hover:bg-purple-600/50 backdrop-blur-[3px] font-bold py-2 px-3 rounded-full transition-all active:scale-95 tracking-wide text-center"
+            {/* Poster Grid */}
+            {!loading && (
+             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7">
+                {remotePosters.length === 0 ? (
+                    <p className="col-span-full text-center text-slate-500">No posters uploaded yet!</p>
+                ) : (
+                    remotePosters.map((poster, index) => (
+                        <div
+                            key={index}
+                            onClick={() => setSelectedPoster(poster.url)}
+                            className="cursor-pointer group aspect-3/4.5 relative overflow-hidden rounded-2xl p-8 flex flex-col items-center text-center transform transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_12px_40px_rgba(0,0,0,0.3)] bg-cover bg-top bg-no-repeat"
+                            style={{ backgroundImage: `url(${poster.url})` }}
                         >
-                            <span className='material-symbols-outlined' style={{ fontVariationSettings: "'wght' 500", fontSize: "22px" }}>call_made</span>
-                        </Link>
-                    </div>
-                ))}
+                            {/* Register Button */}
+                            <Link 
+                                href={"/register"} 
+                                onClick={(e) => e.stopPropagation()}
+                                className="absolute right-1 top-1 bg-purple-500/50 hover:bg-purple-600/50 backdrop-blur-[3px] font-bold py-2 px-3 rounded-full transition-all active:scale-95 tracking-wide text-center"
+                            >
+                                <span className='material-symbols-outlined' style={{ fontVariationSettings: "'wght' 500", fontSize: "22px" }}>call_made</span>
+                            </Link>
+                        </div>
+                    ))
+                )}
             </div>
-            {/* Lightbox Modal */}
+            )}
+            
+            {/* Lightbox Modal ... (Keep your existing Modal HTML here) */}
             {selectedPoster && (
                 <div
                     className="fixed inset-0 z-50 flex items-center justify-center p-4"

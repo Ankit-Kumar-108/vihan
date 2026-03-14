@@ -6,6 +6,7 @@ import GetPhoto from './getPhoto';
 import DeletePhoto from './deletePhoto';
 import { signOut } from 'next-auth/react';
 import { useSettings } from '@/hooks/useSettings';
+import PosterUpload from '../components/poster/poster';
 
 interface PendingPhoto {
     id: string;
@@ -107,7 +108,7 @@ export default function AdminPage() {
                 <div className="max-w-7xl mx-auto flex items-center justify-between px-4 h-16">
                     <div className="flex items-center gap-3">
                         <Link href="/" className="flex items-center gap-2">
-                            <div className="size-7 bg-primary rounded-lg flex items-center justify-center text-white">
+                            <div className="size-7 bg-primary rounded-2xl flex items-center justify-center text-white">
                                 <span className="material-symbols-outlined text-sm">bolt</span>
                             </div>
                             <span className="font-extrabold text-sm text-slate-800 dark:text-white">Vihaan 26</span>
@@ -121,7 +122,7 @@ export default function AdminPage() {
                     </button>
                     <button
                         onClick={() => signOut({ callbackUrl: "/" })}
-                        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-100 text-red-600 hover:bg-red-600 hover:text-white transition-all font-medium"
+                        className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-red-100 text-red-600 hover:bg-red-600 hover:text-white transition-all font-medium"
                     >
                         <span className="material-symbols-outlined text-[20px]">logout</span>
                         Sign Out
@@ -131,7 +132,7 @@ export default function AdminPage() {
 
             <main className="max-w-7xl mx-auto px-4 py-8">
                 {/* settings */}
-                <div className="glass-card rounded-xl p-6 mb-8 space-y-5">
+                <div className="glass-card rounded-2xl p-6 mb-8 space-y-5">
                     <div className="flex items-center gap-2">
                         <span className="material-symbols-outlined text-primary">settings</span>
                         <h3 className="font-bold text-lg">Site Settings</h3>
@@ -173,22 +174,26 @@ export default function AdminPage() {
                             min={1}
                             value={settings.uploadLimitPerUser}
                             onChange={(e) => updateSetting('uploadLimitPerUser', parseInt(e.target.value) || 4)}
-                            className="w-20 bg-slate-100 dark:bg-white/10 rounded-lg px-3 py-2 text-center font-bold text-sm outline-none focus:ring-2 focus:ring-primary/30 transition-all"
+                            className="w-20 bg-slate-100 dark:bg-white/10 rounded-2xl px-3 py-2 text-center font-bold text-sm outline-none focus:ring-2 focus:ring-primary/30 transition-all"
                         />
                     </div>
+                </div>
+                {/* Poster Upload */}
+                <div className="mb-8">
+                    <PosterUpload />
                 </div>
 
                 {/* Stats Row */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-                    <div className="glass-card rounded-xl p-4 text-center">
+                    <div className="glass-card rounded-2xl p-4 text-center">
                         <p className="text-2xl font-black text-slate-900 dark:text-white">{photos.length}{hasMore ? '+' : ''}</p>
                         <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">No. of Loaded Images</p>
                     </div>
-                    <div className="glass-card rounded-xl p-4 text-center border-yellow-500/20">
+                    <div className="glass-card rounded-2xl p-4 text-center border-yellow-500/20">
                         <p className="text-2xl font-black text-yellow-500">{pendingCount}</p>
                         <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">No. of Pending Images</p>
                     </div>
-                    <div className="glass-card rounded-xl p-4 text-center border-green-500/20">
+                    <div className="glass-card rounded-2xl p-4 text-center border-green-500/20">
                         <p className="text-2xl font-black text-green-500">{approvedCount}</p>
                         <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">No. of Approved Images</p>
                     </div>
@@ -240,10 +245,10 @@ export default function AdminPage() {
                             <div
                                 key={photo.id}
                                 onClick={() => setSelectedPhoto(photo)}
-                                className="group relative rounded-xl overflow-hidden aspect-square cursor-pointer ring-1 ring-black/5 dark:ring-white/5 hover:ring-primary/50 transition-all hover:-translate-y-0.5"
+                                className="group relative rounded-2xl overflow-hidden aspect-square cursor-pointer ring-1 ring-black/5 dark:ring-white/5 hover:ring-primary/50 transition-all hover:-translate-y-0.5"
                             >
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img src={photo.dataUrl} alt={photo.fileName} className="w-full h-full object-cover" />
+                                <img src={photo.dataUrl} alt={photo.fileName} className="w-full h-full object-cover object-top" />
                                 <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                                 <div className="absolute top-2 left-2">
                                     <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${photo.status === 'pending' ? 'bg-yellow-500/90 text-black' :
@@ -313,14 +318,14 @@ export default function AdminPage() {
                                 {selectedPhoto.status !== 'published' && (
                                     <button
                                         onClick={() => handleApprove(selectedPhoto)}
-                                        className="flex-1 py-3 rounded-xl bg-green-500 hover:bg-green-600 text-white font-bold text-sm transition-colors flex items-center justify-center gap-1.5"
+                                        className="flex-1 py-3 rounded-2xl bg-green-500 hover:bg-green-600 text-white font-bold text-sm transition-colors flex items-center justify-center gap-1.5"
                                     >
                                         <span className="material-symbols-outlined text-lg">check</span> Approve
                                     </button>
                                 )}
                                 <button
                                     onClick={() => deletePhoto(selectedPhoto)}
-                                    className="py-3 px-4 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-red-50 dark:hover:bg-red-500/10 text-slate-500 hover:text-red-500 font-bold text-sm transition-colors"
+                                    className="py-3 px-4 rounded-2xl bg-slate-100 dark:bg-white/5 hover:bg-red-50 dark:hover:bg-red-500/10 text-slate-500 hover:text-red-500 font-bold text-sm transition-colors"
                                 >
                                     <span className="material-symbols-outlined text-lg">delete</span>
                                 </button>
