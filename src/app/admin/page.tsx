@@ -7,6 +7,7 @@ import DeletePhoto from './deletePhoto';
 import { signOut } from 'next-auth/react';
 import { useSettings } from '@/hooks/useSettings';
 import PosterUpload from '../components/poster/poster';
+import UploadWinner from '../components/uploadWinners/uploadWinners';
 
 interface PendingPhoto {
     id: string;
@@ -116,7 +117,7 @@ export default function AdminPage() {
                         <span className="text-slate-300 dark:text-slate-600">|</span>
                         <span className="text-xs font-bold text-primary uppercase tracking-wider">Admin Panel</span>
                     </div>
-                    <button onClick={() => loadPhotos(true)} className="text-sm text-slate-500 hover:text-primary flex items-center gap-1 transition-colors">
+                    <button onClick={() => loadPhotos(true)} className="text-sm hidden md:block text-slate-500 hover:text-primary flex items-center gap-1 transition-colors">
                         <span className={`material-symbols-outlined ${loading ? 'animate-spin' : ''}`}>refresh</span>
                         {loading ? 'Loading...' : 'Refresh'}
                     </button>
@@ -124,8 +125,8 @@ export default function AdminPage() {
                         onClick={() => signOut({ callbackUrl: "/" })}
                         className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-red-100 text-red-600 hover:bg-red-600 hover:text-white transition-all font-medium"
                     >
-                        <span className="material-symbols-outlined text-[20px]">logout</span>
-                        Sign Out
+                        <span className="material-symbols-outlined text-[12px] md:text-[20px]">logout</span>
+                        <span className="hidden md:block">Sign Out</span>
                     </button>
                 </div>
             </div>
@@ -179,8 +180,9 @@ export default function AdminPage() {
                     </div>
                 </div>
                 {/* Poster Upload */}
-                <div className="mb-8">
+                <div className="mb-8 flex flex-col gap-8">
                     <PosterUpload />
+                    <UploadWinner />
                 </div>
 
                 {/* Stats Row */}

@@ -7,19 +7,39 @@ import EventsShowcase from "./components/EventsShowcase";
 import Timeline from "./components/Timeline";
 import QRUploadSection from "./components/QRUploadSection";
 import { useRef, useEffect } from "react";
+import { getWinners } from "@/lib/getWinners";
+import { useState } from "react";
 
-export default function VIHANFestival() {
+interface winnerData {
+  category: string;
+  winnerName: string;
+  imageUrl: string;
+}
+
+export default function VIHANFestival(data: winnerData) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isHover = useRef<boolean>(false);
+  const [winners, setWinners] = useState<any[]>([]);
+  const [winnersLoading, setWinnersLoading] = useState(false);
+
+  useEffect(() => {
+    async function GetWinners() {
+      setWinnersLoading(true)
+      const data = await getWinners()
+      setWinners(data)
+      setWinnersLoading(false)
+    }
+    GetWinners()
+  }, [])
 
   useEffect(() => {
     const container = scrollRef.current;
-    if(!container) return;
+    if (!container) return;
 
     const scrollInterval = setInterval(() => {
-      if(!isHover.current){
-        container.scrollLeft +=1;
-        if(container.scrollLeft >= container.scrollWidth / 2){
+      if (!isHover.current) {
+        container.scrollLeft += 1;
+        if (container.scrollLeft >= container.scrollWidth / 2) {
           container.scrollLeft = 0;
         }
       }
@@ -110,71 +130,107 @@ export default function VIHANFestival() {
               <h1 className="font-bold text-2xl md:text-5xl mb-3">Winners of Vihan 2026</h1>
               <p className="text-slate-500 dark:text-slate-400">Top of the Line</p>
             </div>
-            <div 
-            ref={scrollRef}
-            onMouseEnter={() => isHover.current = true}
-            onMouseLeave={() => isHover.current = false}
-            className="flex gap-7 overflow-x-scroll no-scrollbar">
+            <div
+              ref={scrollRef}
+              onMouseEnter={() => isHover.current = true}
+              onMouseLeave={() => isHover.current = false}
+              className="flex gap-7 overflow-x-scroll no-scrollbar">
 
               {/* Block 1 (Original) */}
               {[
-                { href: 'events/Singing-Winner', icon: 'music_note', category: 'Singing', name: 'To be announced' },
-                { href: 'events/Dance-Winner', icon: 'settings_accessibility', category: 'Dance', name: 'To be announced' },
-                { href: 'events/Sports-Winner', icon: 'sports_basketball', category: 'Sports', name: 'To be announced' },
-                { href: 'events/FashionShow-Winner', icon: 'campaign', category: 'Fashion', name: 'To be announced' },
-                { href: 'events/Technical-Winner', icon: 'campaign', category: 'Technical', name: 'To be announced' },
-                { href: 'events/Mehandi-winner', icon: 'campaign', category: 'Arts Villa', name: 'To be announced' },
-                { href: 'events/Cricket-Winner', icon: 'campaign', category: 'Debate', name: 'To be announced' },
-                { href: 'events/Drama-Winner', icon: 'campaign', category: 'Cultural', name: 'To be announced' },
-              ].map((cat) => (
-                <Link key={cat.category} href={cat.href}>
-                  <div className={`z-20 group relative rounded-2xl h-67 w-52 cursor-pointer transition-all shrink-0 duration-300 hover:scale-[1.03] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)]`}>
-                    <div className={`absolute z-10 bg-linear-to-br h-57 w-47 left-2 top-4 bg-white dark:bg-black`}></div>
-                    <img src="/images/Frame.png" alt="Frame Image" className="absolute w-full h-full z-40 object-cover" />
-                    <div className="absolute z-10 text-7xl top-[30%] left-[38%] font-bold">
-                      ?
-                    </div>
-                    <div className="absolute bottom-11 left-10 z-10">
-                      <div className="font-bold ">
-                        {cat.name}
-                      </div>
-                        <div className="font-bold text-purple-400">
+                "Gully Cricket", "Tug Of War", "Badminton", "Carrom", "Chess", "Arm Wrestling", "Kho Kho", "Kabbadi", "Treasure Hunt", "Slow Bike Race", "Shot Put", "Sports Parade", "Lemon Spoon Race", "Volleyball", "Race (100M)", "Race(200M)", "Technical Presentation", "Painting", "Reels", "Extempore", "Debate", "Model Presentation", "Photography", "LAN Gaming", "Poster Making", "Quiz (General)", "Quiz (Technical)", "Nail Painting", "Face Painting", "Mehndi", "Rangoli", "Singing(Solo)", "Singing(Duet)", "Dance(Solo)", "Dance(Duet)", "Mimicry", "Skit", "Fashion Show", "Poetry (Self Composed)"
+              ].map((catName) => {
+                // Map the simple string name backwards to the old object structure used by the component
+                const cat = {
+                  href: `events/${catName.replace(/[^a-zA-Z0-9]/g, '-')}-Winner`,
+                  icon: 'workspace_premium',
+                  category: catName,
+                  name: 'To be announced'
+                };
+                const winnerInfo = winners.find((w: any) => w.category === cat.category);
+                return (
+                  <Link key={cat.category} href={cat.href}>
+                    <div className={`z-20 group relative rounded-2xl h-67 w-52 cursor-pointer transition-all shrink-0 duration-300 hover:scale-[1.03] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)] overflow-hidden`}>
+                      <div className={`absolute z-10 bg-linear-to-br h-57 w-47 left-2 top-4 bg-white dark:bg-black`}></div>
+                      <img src="/images/Frame.png" alt="Frame Image" className="absolute w-full h-full z-50 object-cover" />
+                      {winnerInfo && !winnersLoading ? (
+                        <img src={winnerInfo.imageUrl} alt={`${cat.category} Winner`} className="absolute z-10 bg-linear-to-br h-57 w-47 left-2 top-4 object-cover rounded-2xl" />
+                      ) : (
+                        <>
+                        {!winnersLoading && (
+                          <div className="absolute z-10 text-7xl top-[30%] left-[38%] font-bold">
+                            ?
+                          </div>
+                        )}
+                        {winnersLoading && (
+                          <div className="absolute z-10 text-xl top-[30%] left-[38%] font-bold">
+                          <div className="size-10 rounded-full border-5 border-blue-500 border-t-transparent animate-spin"></div>
+                          </div>
+                        )}
+                        </>
+                      )}
+
+
+                      <div className="absolute bottom-7 left-10 bg-black/30 w-full -mt-2 pb-4 z-40 -ml-4">
+                        <div className="font-bold text-white pl-4 text-md">
+                          {winnerInfo && !winnersLoading ? winnerInfo.winnerName : cat.name}
+                        </div>
+                        <div className="font-bold text-purple-500 pl-4 text-sm">
                           {cat.category}
                         </div>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                )
+              })}
 
               {/* Block 2 (The Copy for infinite scroll) */}
               {[
-                { href: 'events/Singing-Winner', icon: 'music_note', category: 'Singing', name: 'To be announced' },
-                { href: 'events/Dance-Winner', icon: 'settings_accessibility', category: 'Dance', name: 'To be announced' },
-                { href: 'events/Sports-Winner', icon: 'sports_basketball', category: 'Sports', name: 'To be announced' },
-                { href: 'events/FashionShow-Winner', icon: 'campaign', category: 'Fashion', name: 'To be announced' },
-                { href: 'events/Technical-Winner', icon: 'campaign', category: 'Technical', name: 'To be announced' },
-                { href: 'events/Mehandi-winner', icon: 'campaign', category: 'Arts Villa', name: 'To be announced' },
-                { href: 'events/Cricket-Winner', icon: 'campaign', category: 'Debate', name: 'To be announced' },
-                { href: 'events/Drama-Winner', icon: 'campaign', category: 'Cultural', name: 'To be announced' },
-              ].map((cat) => (
-                <Link key={`${cat.category}-copy`} href={cat.href} aria-hidden="true">
-                  <div className={`z-20 group relative rounded-2xl h-67 w-52 cursor-pointer transition-all shrink-0 duration-300 hover:scale-[1.03] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)]`}>
-                    <div className={`absolute z-10 bg-linear-to-br h-57 w-47 left-2 top-4 bg-white dark:bg-black`}></div>
-                    <img src="/images/Frame.png" alt="Frame Image" className="absolute w-full h-full z-40 object-cover" />
-                    <div className="absolute z-10 text-7xl top-[30%] left-[38%] font-bold">
-                      ?
-                    </div>
-                    <div className="absolute bottom-11 left-10 z-10">
-                      <div className="font-bold ">
-                        {cat.name}
-                      </div>
-                        <div className="font-bold text-purple-400">
+                "Gully Cricket", "Tug Of War", "Badminton", "Carrom", "Chess", "Arm Wrestling", "Kho Kho", "Kabbadi", "Treasure Hunt", "Slow Bike Race", "Shot Put", "Sports Parade", "Lemon Spoon Race", "Volleyball", "Race (100M)", "Race(200M)", "Technical Presentation", "Painting", "Reels", "Extempore", "Debate", "Model Presentation", "Photography", "LAN Gaming", "Poster Making", "Quiz (General)", "Quiz (Technical)", "Nail Painting", "Face Painting", "Mehndi", "Rangoli", "Singing(Solo)", "Singing(Duet)", "Dance(Solo)", "Dance(Duet)", "Mimicry", "Skit", "Fashion Show", "Poetry (Self Composed)"
+              ].map((catName) => {
+                const cat = {
+                  href: `events/${catName.replace(/[^a-zA-Z0-9]/g, '-')}-Winner`,
+                  icon: 'workspace_premium',
+                  category: catName,
+                  name: 'To be announced',
+                };
+                const winnerInfo = winners.find((w: any) => w.category === cat.category);
+                return (
+                  <Link key={`${cat.category}-copy`} href={cat.href} aria-hidden="true">
+                    <div className={`z-20 group relative rounded-2xl h-67 w-52 cursor-pointer transition-all shrink-0 duration-300 hover:scale-[1.03] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)] overflow-hidden`}>
+                      <div className={`absolute z-10 bg-linear-to-br h-57 w-47 left-2 top-4 bg-white dark:bg-black`}></div>
+                      <img src="/images/Frame.png" alt="Frame Image" className="absolute w-full h-full z-50 object-cover" />
+                      {winnerInfo && !winnersLoading ? (
+                        <img src={winnerInfo.imageUrl} alt={`${cat.category} Winner`} className="absolute z-10 bg-linear-to-br h-57 w-47 left-2 top-4 object-cover rounded-2xl" />
+                      ) : (
+                        <>
+                        {!winnersLoading && (
+                          <div className="absolute z-10 text-7xl top-[30%] left-[38%] font-bold">
+                            ?
+                          </div>
+                        )}
+                        {winnersLoading && (
+                          <div className="absolute z-10 text-xl top-[30%] left-[38%] font-bold">
+                           <div className="size-10 rounded-full border-5 border-blue-500 border-t-transparent animate-spin"></div>
+                          </div>
+                        )}
+                        </>
+                      )}
+
+
+
+                      <div className="absolute bottom-7 left-10 bg-black/30 w-full -mt-2 z-40 -ml-4 pb-4">
+                        <div className="font-bold text-white pl-4 text-md">
+                          {winnerInfo && !winnersLoading ? winnerInfo.winnerName : cat.name}
+                        </div>
+                        <div className="font-bold text-purple-500 pl-4 text-sm">
                           {cat.category}
                         </div>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                )
+              })}
             </div>
           </section>
 
