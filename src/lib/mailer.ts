@@ -17,9 +17,9 @@ export default async function sendConfirmationEmail(data: { name: string, email:
         const emailContent = mailerTemplate(data.name, data.email, data.enrollment, data.phone, data.department, data.event, data.teamMembers)
 
         await transporter.sendMail({
-            from: `Vihaan 2026 <${process.env.EMAIL_USER}>`,
+            from: `VIHAN 2026 <${process.env.EMAIL_USER}>`,
             to: data.email,
-            subject: `Registration Confirmed - Vihaan 2026 | ${data.event}`,
+            subject: `Registration Confirmed - VIHAN 2026 | ${data.event}`,
             html: emailContent,
             attachments: [
                 {

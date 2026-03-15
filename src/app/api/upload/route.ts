@@ -19,12 +19,12 @@ export async function GET() {
     try {
         const session = await getServerSession(authOptions);
 
-        const isAdmin = session?.user?.email === process.env.ADMIN_EMAIL;
+        const isAdmin = session?.user?.email === process.env.ADMIN_EMAIL || session?.user?.email === process.env.ADMIN_EMAIL_2;
 
         const settingsDoc = await db.collection('config').doc('siteSettings').get();
         const settings = settingsDoc.data();
 
-        if (!isAdmin && settings?.uploadEnabled === false) {
+        if (!isAdmin && settings?.uploadEnabled !== true) {
             return NextResponse.json({ error: "Uploads are currently Disabled", enabled: false }, { status: 403 })
         }
 
@@ -47,11 +47,11 @@ export async function POST(req: Request) {
     try {
         const session = await getServerSession(authOptions);
 
-        const isAdmin = session?.user?.email === process.env.ADMIN_EMAIL;
+        const isAdmin = session?.user?.email === process.env.ADMIN_EMAIL || session?.user?.email === process.env.ADMIN_EMAIL_2;
         const settingsDoc = await db.collection('config').doc('siteSettings').get();
         const settings = settingsDoc.data();
 
-        if (!isAdmin && settings?.uploadEnabled === false) {
+        if (!isAdmin && settings?.uploadEnabled !== true) {
             return NextResponse.json({ error: "Uploads are currently Disabled", enabled: false }, { status: 403 })
         }
 

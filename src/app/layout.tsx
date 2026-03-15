@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Vihaan 2k26 — College Festival",
+  title: `VIHAN 2k${new Date().getFullYear().toString().slice(-2)} — College Festival`,
   description:
-    "The ultimate fusion of art, tech, and adrenaline. Join 10,000+ students for the biggest college festival of the year.",
+    "The ultimate fusion of art, tech, and adrenaline. Join 1,000+ students for the biggest college festival of the year.",
 };
 
 export default function RootLayout({

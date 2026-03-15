@@ -112,7 +112,7 @@ export default function AdminPage() {
                             <div className="size-7 bg-primary rounded-2xl flex items-center justify-center text-white">
                                 <span className="material-symbols-outlined text-sm">bolt</span>
                             </div>
-                            <span className="font-extrabold text-sm text-slate-800 dark:text-white">Vihaan 26</span>
+                            <span className="font-extrabold text-sm text-slate-800 dark:text-white">VIHAN 26</span>
                         </Link>
                         <span className="text-slate-300 dark:text-slate-600">|</span>
                         <span className="text-xs font-bold text-primary uppercase tracking-wider">Admin Panel</span>

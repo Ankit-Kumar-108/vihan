@@ -91,7 +91,7 @@ export default function UploadPage() {
                         <div className="size-7 bg-primary rounded-lg flex items-center justify-center text-white">
                             <span className="material-symbols-outlined text-sm">bolt</span>
                         </div>
-                        <span className="font-bold text-sm text-slate-800 dark:text-white">Vihaan 26</span>
+                        <span className="font-bold text-sm text-slate-800 dark:text-white">VIHAN 26</span>
                     </Link>
                     <span className="text-xs font-bold text-primary uppercase tracking-wider">Photo Upload</span>
                 </div>

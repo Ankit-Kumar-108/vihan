@@ -10,8 +10,8 @@ const WINNER_CATEGORIES = [
 ];
 
 export default function UploadWinner() {
-  const [selectedCategory, setSelectedCategory] = useState(WINNER_CATEGORIES[0]);
-  const categoryRef = useRef(WINNER_CATEGORIES[0]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const categoryRef = useRef("");
   const [winnerName, setWinnerName] = useState("");
   const winnerNameRef = useRef("");
   const [isSaving, setIsSaving] = useState(false);
@@ -78,6 +78,7 @@ export default function UploadWinner() {
             }}
             className="bg-black/40 border border-white/10 rounded-xl p-3 text-sm text-white outline-none w-full disabled:opacity-50"
           >
+            <option disabled value="">Select Category</option>
             {WINNER_CATEGORIES.map(cat => (
               <option key={cat} value={cat}>{cat}</option>
             ))}

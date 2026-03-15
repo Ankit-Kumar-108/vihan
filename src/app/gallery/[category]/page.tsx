@@ -33,7 +33,7 @@ export default async function CategoryPage({ params }: { params: Promise<Params>
                         {decodedCategory} <span className="text-primary">Gallery</span>
                     </h1>
                     <p className="text-slate-500 dark:text-slate-400 mt-2">
-                        Browse all {decodedCategory.toLowerCase()} photos from Vihaan 2026
+                        Browse all {decodedCategory.toLowerCase()} photos from VIHAN 2026
                     </p>
                 </div>
 

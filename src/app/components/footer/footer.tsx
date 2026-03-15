@@ -98,7 +98,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-slate-200 dark:border-[#2d1b24] pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
-          <p>© {new Date().getFullYear()} Vihaan Festival — Radharaman Group of Institutes, Bhopal. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} VIHAN Festival — Radharaman Group of Institutes, Bhopal. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <a href="https://www.rgibhopal.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors font-medium">RGI Bhopal</a>
             <span className="text-slate-300 dark:text-slate-700">•</span>

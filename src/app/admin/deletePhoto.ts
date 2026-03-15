@@ -5,9 +5,12 @@ import { revalidatePath } from "next/cache"
 export default async function DeletePhoto(id: string, cloudyId: string) {
   try {
 
-    const cloudinaryRes = await cloudinary.uploader.destroy(cloudyId) 
+    const cloudinaryRes = await cloudinary.uploader.destroy(cloudyId)
 
-    // await drive.files.delete({ fileId: driveId })
+    if (cloudinaryRes.result !== 'ok') {
+      console.warn(`Cloudinary image not deleted (may be orphaned): ${cloudyId}`, cloudinaryRes)
+    }
+
     await db.collection('submissions').doc(id).delete()
 
     revalidatePath("/admin")

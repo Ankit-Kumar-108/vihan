@@ -41,7 +41,7 @@ export default function CategoryGalleryClient({ category, initialPhotos, initial
             const blob = await res.blob();
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
-            a.download = `vihaan_${category}_${photo.id}.jpg`;
+            a.download = `VIHAN_${category}_${photo.id}.jpg`;
             a.click();
             URL.revokeObjectURL(a.href);
         } catch {
@@ -68,7 +68,7 @@ export default function CategoryGalleryClient({ category, initialPhotos, initial
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                                 src={photo.thumbnailUrl}
-                                alt={photo.eventName ?? 'Vihaan Event'}
+                                alt={photo.eventName ?? 'VIHAN Event'}
                                 loading="lazy"
                                 className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
                             />
@@ -123,7 +123,7 @@ export default function CategoryGalleryClient({ category, initialPhotos, initial
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src={selectedPhoto.fullUrl || selectedPhoto.url || selectedPhoto.thumbnailUrl}
-                            alt={selectedPhoto.eventName ?? 'Vihaan Event'}
+                            alt={selectedPhoto.eventName ?? 'VIHAN Event'}
                             className="max-h-[75vh] w-auto max-w-full object-contain rounded-2xl shadow-2xl"
                         />
 

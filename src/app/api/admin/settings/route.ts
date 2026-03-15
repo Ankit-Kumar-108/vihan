@@ -8,6 +8,10 @@ const SETTINGS_DOC = db.collection("config").doc("siteSettings")
 
 export async function GET(){
     try {
+        const session = await getServerSession(authOptions)
+        if(session?.user?.email !== process.env.ADMIN_EMAIL && session?.user?.email !== process.env.ADMIN_EMAIL_2){
+            return NextResponse.json({error: "Unauthorized"}, {status: 401})
+        }
         const doc = await SETTINGS_DOC.get()
         const data = doc.data()
         return NextResponse.json({
@@ -24,7 +28,7 @@ export async function GET(){
 export async function POST(req: Request){
     try {
         const session = await getServerSession(authOptions)
-        if(session?.user?.email !== process.env.ADMIN_EMAIL || session?.user?.email !== process.env.ADMIN_EMAIL_2){
+        if(session?.user?.email !== process.env.ADMIN_EMAIL && session?.user?.email !== process.env.ADMIN_EMAIL_2){
             return NextResponse.json({error: "Unauthorized"}, {status: 401})
         }
         const body = await req.json()

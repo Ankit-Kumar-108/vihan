@@ -117,7 +117,7 @@ export default function RegisterPage() {
                     {/* Welcome Header */}
                     <div className="text-center mb-12">
                         <h2 className="h-20  text-3xl sm:text-5xl  font-black mb-7 bg-linear-to-r from-slate-900 via-primary to-secondary-accent dark:from-white dark:via-primary dark:to-secondary-accent bg-clip-text text-transparent">
-                            Vihaan 2026 Registration
+                            VIHAN 2026 Registration
                         </h2>
                         <p className="text-slate-500 dark:text-slate-400 max-w-lg mx-auto ">
                             Ignite your passion and showcase your talent. Join the biggest cultural extravaganza of the year.

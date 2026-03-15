@@ -5,12 +5,14 @@ import GallerySection from './GallerySection'
 
 export default async function Gallery() {
   // Fetch initial data for each category on the server — no useEffect, no loading state
-  const [danceResult, musicResult, sportResult, technicalResult, fashionResult] = await Promise.all([
-    FetchGalleryImg('Dance'),
-    FetchGalleryImg('Singing'),
+  const [culturalResult, sportResult, technicalResult, artsVillaResult] = await Promise.all([
+    // FetchGalleryImg('Dance'),
+    // FetchGalleryImg('Singing'),
+    FetchGalleryImg('Cultural'),
     FetchGalleryImg('Sports'),
     FetchGalleryImg('Technical'),
-    FetchGalleryImg('Fashion')
+    // FetchGalleryImg('Fashion'),
+    FetchGalleryImg('Arts Villa'),
   ])
 
   return (
@@ -55,12 +57,12 @@ export default async function Gallery() {
 
         {/* Dance Section — client component for load-more interactivity */}
         <GallerySection
-          title="Dance Off Highlights"
+          title="Cultural Highlights"
           accentColor="bg-secondary-blue"
-          category="Dance"
+          category="Cultural"
           cardbg="transparent"
-          initialPhotos={danceResult.photos}
-          initialLastId={danceResult.lastId}
+          initialPhotos={culturalResult.photos}
+          initialLastId={culturalResult.lastId}
         />
 
         {/* Sports Section — static cards */}
@@ -76,29 +78,29 @@ export default async function Gallery() {
         {/* Music & Debate Section — client component for load-more interactivity */}
         <GallerySection
           cardbg="transparent"
-          title="Singing"
+          title="Technical"
           accentColor="bg-slate-800 dark:bg-slate-200"
-          category="Singing"
-          initialPhotos={musicResult.photos}
-          initialLastId={musicResult.lastId}
+          category="Technical"
+          initialPhotos={technicalResult.photos}
+          initialLastId={technicalResult.lastId}
         />
         {/* Fashion Widset */}
-        <GallerySection
+        {/* <GallerySection
           cardbg="transparent"
           title="Fashion"
           accentColor="bg-slate-800 dark:bg-slate-200"
           category="Fashion"
           initialPhotos={fashionResult.photos}
           initialLastId={fashionResult.lastId}
-        />
+        /> */}
         {/* Technical widset */}
         <GallerySection
           cardbg="transparent"
-          title="Technical"
+          title="Arts Villa"
           accentColor="bg-slate-800 dark:bg-slate-200"
-          category="Technical"
-          initialPhotos={technicalResult.photos}
-          initialLastId={technicalResult.lastId}
+          category="Arts Villa"
+          initialPhotos={artsVillaResult.photos}
+          initialLastId={artsVillaResult.lastId}
         />
 
       </main>
