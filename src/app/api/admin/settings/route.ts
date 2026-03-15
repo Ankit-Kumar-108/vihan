@@ -24,7 +24,7 @@ export async function GET(){
 export async function POST(req: Request){
     try {
         const session = await getServerSession(authOptions)
-        if(session?.user?.email !== process.env.ADMIN_EMAIL){
+        if(session?.user?.email !== process.env.ADMIN_EMAIL || session?.user?.email !== process.env.ADMIN_EMAIL_2){
             return NextResponse.json({error: "Unauthorized"}, {status: 401})
         }
         const body = await req.json()

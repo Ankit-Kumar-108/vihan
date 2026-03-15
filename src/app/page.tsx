@@ -136,14 +136,12 @@ export default function VIHANFestival(data: winnerData) {
               onMouseLeave={() => isHover.current = false}
               className="flex gap-7 overflow-x-scroll no-scrollbar">
 
-              {/* Block 1 (Original) */}
               {[
                 "Gully Cricket", "Tug Of War", "Badminton", "Carrom", "Chess", "Arm Wrestling", "Kho Kho", "Kabbadi", "Treasure Hunt", "Slow Bike Race", "Shot Put", "Sports Parade", "Lemon Spoon Race", "Volleyball", "Race (100M)", "Race(200M)", "Technical Presentation", "Painting", "Reels", "Extempore", "Debate", "Model Presentation", "Photography", "LAN Gaming", "Poster Making", "Quiz (General)", "Quiz (Technical)", "Nail Painting", "Face Painting", "Mehndi", "Rangoli", "Singing(Solo)", "Singing(Duet)", "Dance(Solo)", "Dance(Duet)", "Mimicry", "Skit", "Fashion Show", "Poetry (Self Composed)"
               ].map((catName) => {
-                // Map the simple string name backwards to the old object structure used by the component
                 const cat = {
                   href: `events/${catName.replace(/[^a-zA-Z0-9]/g, '-')}-Winner`,
-                  icon: 'workspace_premium',
+                  icon: 'workspace_premium', //baad mei
                   category: catName,
                   name: 'To be announced'
                 };
