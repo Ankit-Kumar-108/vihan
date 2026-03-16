@@ -234,7 +234,7 @@ export default function RegisterPage() {
                                     <div
                                         onClick={() => setFormData({ ...formData, event: "Cultural", subEvent: "" })}
 
-                                        className={`bg-background-light dark:bg-background-dark p-4 rounded-2xl border border-slate-300 dark:border-white/15 cursor-pointer group active:scale-95 hover:bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20 duration-400 transition-all ${formData.event === "Cultural" ? `ring-2 ring-primary border border-primary bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20` : ``}`}>
+                                        className={`bg-background-light overflow-hidden dark:bg-background-dark p-4 rounded-2xl border border-slate-300 dark:border-white/15 cursor-pointer group active:scale-95 hover:bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20 duration-400 transition-all ${formData.event === "Cultural" ? `ring-2 ring-primary border border-primary bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20` : ``}`}>
                                         <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 group-hover:bg-primary transition-colors duration-400 ${formData.event === "Cultural" ? `bg-primary` : `bg-primary/20`}`}>
                                             <span className={`material-symbols-outlined group-hover:text-white ${formData.event === "Cultural" ? `text-white` : `text-primary`}`}>theater_comedy</span>
                                         </div>
@@ -244,7 +244,7 @@ export default function RegisterPage() {
 
                                     <div
                                         onClick={() => setFormData({ ...formData, event: "Technical", subEvent: "" })}
-                                        className={`bg-background-light dark:bg-background-dark p-4 rounded-2xl border border-slate-300 dark:border-white/15 cursor-pointer group active:scale-95 hover:bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20 duration-400 transition-all ${formData.event === "Technical" ? `ring-2 ring-primary border border-primary bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20` : ``}`}>
+                                        className={`bg-background-light overflow-hidden dark:bg-background-dark p-4 rounded-2xl border border-slate-300 dark:border-white/15 cursor-pointer group active:scale-95 hover:bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20 duration-400 transition-all ${formData.event === "Technical" ? `ring-2 ring-primary border border-primary bg-linear-to-br from-primary/30 via-primary/20 to-secondary-accent/20` : ``}`}>
                                         <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 group-hover:bg-blue-500 transition-colors duration-400 ${formData.event === "Technical" ? `bg-blue-500` : `bg-blue-500/20`}`}>
                                             <span className={`material-symbols-outlined group-hover:text-white ${formData.event === "Technical" ? `text-white` : `text-blue-500`}`}>terminal</span>
                                         </div>
