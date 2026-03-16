@@ -102,14 +102,14 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row items-center gap-4">
             <div className="flex items-center gap-2">
               <p className="text-slate-400 dark:text-slate-500">
-                Developed by <span className="text-primary font-bold">Ankit Kumar</span>
+                Developed by <span className="text-black dark:text-white font-bold">Ankit Kumar</span>
               </p>
               <div className="flex items-center gap-2.5 ml-1">
                 <a 
                   href="https://github.com/Ankit-Kumar-108" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-slate-400 hover:text-black dark:hover:text-white transition-colors"
+                  className="text-slate-400 hover:text-black dark:hover:text-white transition-colors duration-200"
                   title="GitHub Profile"
                 >
                   <svg className="size-5 fill-current" viewBox="0 0 24 24">
@@ -120,7 +120,7 @@ export default function Footer() {
                   href="https://www.linkedin.com/in/ankit-kumar-98102b24a/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-slate-400 hover:text-[#0077b5] transition-colors"
+                  className="text-blue-400 hover:text-blue-500 transition-colors duration-200"
                   title="LinkedIn Profile"
                 >
                   <svg className="size-5 fill-current" viewBox="0 0 24 24">
@@ -129,9 +129,7 @@ export default function Footer() {
                 </a>
               </div>
             </div>
-            <span className="hidden md:inline text-slate-300 dark:text-slate-700">•</span>
             <div className="flex items-center gap-4">
-            <a href="https://www.rgibhopal.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors font-medium">RGI Bhopal</a>
             <span className="text-slate-300 dark:text-slate-700">•</span>
             <Link href="/admin" className="flex items-center gap-1 text-pink-500 font-bold dark:text-amber-300">Admin Panel</Link>
           </div>
