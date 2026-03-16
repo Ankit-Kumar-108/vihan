@@ -203,20 +203,20 @@ export default function RegisterPage() {
                                                 required
                                                 className="w-full bg-slate-100 dark:bg-background-dark/50 border border-slate-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-slate-400 appearance-none">
                                                 <option className='bg-slate-100 dark:bg-background-dark' value="" disabled >Select Department</option>
-                                                <option className='bg-slate-100 dark:bg-background-dark' value="">Computer Science Engineering (REC)</option>
-                                                <option className='bg-slate-100 dark:bg-background-dark' value="">Mechanical Engineering (REC)</option>
-                                                <option className='bg-slate-100 dark:bg-background-dark' value="">Civil Engineering (REC)</option>
-                                                <option className='bg-slate-100 dark:bg-background-dark' value="">Electrical Engineering (REC)</option>
-                                                <option className='bg-slate-100 dark:bg-background-dark' value="">Computer Science Engineering (RITS)</option>
-                                                <option className='bg-slate-100 dark:bg-background-dark' value="">Mechanical Engineering (RITS)</option>
-                                                <option className='bg-slate-100 dark:bg-background-dark' value="">Civil Engineering (RITS)</option>
-                                                <option className='bg-slate-100 dark:bg-background-dark' value="">Electrical Engineering (RITS)</option>
-                                                <option className='bg-slate-100 dark:bg-background-dark' value="">BAHMS (RAMCRH)</option>
-                                                <option className='bg-slate-100 dark:bg-background-dark' value="">Nursing (RIN)</option>
-                                                <option className='bg-slate-100 dark:bg-background-dark' value="">Pharmacy (RCP)</option>
-                                                <option className='bg-slate-100 dark:bg-background-dark' value="">Pharmacy (RIPS)</option>
-                                                <option className='bg-slate-100 dark:bg-background-dark' value="">Diploma (REC)</option>
-                                                <option className='bg-slate-100 dark:bg-background-dark' value="">MBA (REC)</option>
+                                                <option className='bg-slate-100 dark:bg-background-dark' value="Computer Science Engineering (REC)">Computer Science Engineering (REC)</option>
+                                                <option className='bg-slate-100 dark:bg-background-dark' value="Mechanical Engineering (REC)">Mechanical Engineering (REC)</option>
+                                                <option className='bg-slate-100 dark:bg-background-dark' value="Civil Engineering (REC)">Civil Engineering (REC)</option>
+                                                <option className='bg-slate-100 dark:bg-background-dark' value="Electrical Engineering (REC)">Electrical Engineering (REC)</option>
+                                                <option className='bg-slate-100 dark:bg-background-dark' value="Computer Science Engineering (RITS)">Computer Science Engineering (RITS)</option>
+                                                <option className='bg-slate-100 dark:bg-background-dark' value="Mechanical Engineering (RITS)">Mechanical Engineering (RITS)</option>
+                                                <option className='bg-slate-100 dark:bg-background-dark' value="Civil Engineering (RITS)">Civil Engineering (RITS)</option>
+                                                <option className='bg-slate-100 dark:bg-background-dark' value="Electrical Engineering (RITS)">Electrical Engineering (RITS)</option>
+                                                <option className='bg-slate-100 dark:bg-background-dark' value="BAHMS (RAMCRH)">BAHMS (RAMCRH)</option>
+                                                <option className='bg-slate-100 dark:bg-background-dark' value="Nursing (RIN)">Nursing (RIN)</option>
+                                                <option className='bg-slate-100 dark:bg-background-dark' value="Pharmacy (RCP)">Pharmacy (RCP)</option>
+                                                <option className='bg-slate-100 dark:bg-background-dark' value="Pharmacy (RIPS)">Pharmacy (RIPS)</option>
+                                                <option className='bg-slate-100 dark:bg-background-dark' value="Diploma (REC)">Diploma (REC)</option>
+                                                <option className='bg-slate-100 dark:bg-background-dark' value="MBA (REC)">MBA (REC)</option>
 
                                             </select>
                                         </div>
