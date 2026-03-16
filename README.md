@@ -72,5 +72,12 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 Contributions are welcome! Please ensure you follow the existing code style and test your changes thoroughly.
 
+## 👨‍💻 Developer
+
+Built with passion by **Ankit Kumar**.
+
+* **GitHub**: [@Ankit-Kumar-108](https://github.com/Ankit-Kumar-108)
+* **LinkedIn**: [Ankit Kumar](https://www.linkedin.com/in/ankit-kumar-98102b24a/)
+
 ---
 *Built for Vihaan @ RGI*

@@ -2,6 +2,7 @@
   "name": "vihaan",
   "version": "0.1.0",
   "private": true,
+  "author": "Ankit Kumar <https://github.com/Ankit-Kumar-108>",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   title: `VIHAN 2k${new Date().getFullYear().toString().slice(-2)} — College Festival`,
   description:
     "The ultimate fusion of art, tech, and adrenaline. Join 1,000+ students for the biggest college festival of the year.",
+  authors: [{ name: "Ankit Kumar", url: "https://github.com/Ankit-Kumar-108" }],
 };
 
 export default function RootLayout({

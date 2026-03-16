@@ -211,7 +211,7 @@ export default function RegisterPage() {
                                                 <option className='bg-slate-100 dark:bg-background-dark' value="Mechanical Engineering (RITS)">Mechanical Engineering (RITS)</option>
                                                 <option className='bg-slate-100 dark:bg-background-dark' value="Civil Engineering (RITS)">Civil Engineering (RITS)</option>
                                                 <option className='bg-slate-100 dark:bg-background-dark' value="Electrical Engineering (RITS)">Electrical Engineering (RITS)</option>
-                                                <option className='bg-slate-100 dark:bg-background-dark' value="BAHMS (RAMCRH)">BAHMS (RAMCRH)</option>
+                                                <option className='bg-slate-100 dark:bg-background-dark' value="BAMS (RAMCRH)">BAMS (RAMCRH)</option>
                                                 <option className='bg-slate-100 dark:bg-background-dark' value="Nursing (RIN)">Nursing (RIN)</option>
                                                 <option className='bg-slate-100 dark:bg-background-dark' value="Pharmacy (RCP)">Pharmacy (RCP)</option>
                                                 <option className='bg-slate-100 dark:bg-background-dark' value="Pharmacy (RIPS)">Pharmacy (RIPS)</option>
