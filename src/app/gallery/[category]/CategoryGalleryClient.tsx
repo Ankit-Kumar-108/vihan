@@ -24,6 +24,8 @@ export default function CategoryGalleryClient({ category, initialPhotos, initial
     const [lastId, setLastId] = useState<string | null>(initialLastId)
     const [loading, setLoading] = useState(false)
     const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null)
+    const [downloading, setDownloading] = useState(false)
+    const [lightboxLoaded, setLightboxLoaded] = useState(false)
 
     const handleLoadMore = async () => {
         if (!lastId || loading) return
@@ -35,6 +37,7 @@ export default function CategoryGalleryClient({ category, initialPhotos, initial
     }
 
     const handleDownload = async (photo: Photo) => {
+        setDownloading(true)
         try {
             const url = photo.fullUrl || photo.url || photo.thumbnailUrl;
             const res = await fetch(url);
@@ -46,6 +49,8 @@ export default function CategoryGalleryClient({ category, initialPhotos, initial
             URL.revokeObjectURL(a.href);
         } catch {
             window.open(photo.fullUrl || photo.url || photo.thumbnailUrl, '_blank');
+        } finally {
+            setDownloading(false)
         }
     }
 
@@ -65,12 +70,14 @@ export default function CategoryGalleryClient({ category, initialPhotos, initial
                             onClick={() => setSelectedPhoto(photo)}
                             className="break-inside-avoid rounded-2xl overflow-hidden group cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 relative"
                         >
+                            {/* Shimmer skeleton behind image */}
+                            <div className="absolute inset-0 bg-slate-200 dark:bg-white/5 animate-shimmer" />
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                                 src={photo.thumbnailUrl}
                                 alt={photo.eventName ?? 'VIHAN Event'}
                                 loading="lazy"
-                                className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                                className="relative w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
                             />
                             {/* Hover overlay */}
                             <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -104,7 +111,7 @@ export default function CategoryGalleryClient({ category, initialPhotos, initial
             {selectedPhoto && (
                 <div
                     className="fixed inset-0 z-50 flex items-center justify-center p-4"
-                    onClick={() => setSelectedPhoto(null)}
+                    onClick={() => { setSelectedPhoto(null); setLightboxLoaded(false); }}
                 >
                     <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
                     <div
@@ -113,18 +120,26 @@ export default function CategoryGalleryClient({ category, initialPhotos, initial
                     >
                         {/* Close button */}
                         <button
-                            onClick={() => setSelectedPhoto(null)}
+                            onClick={() => { setSelectedPhoto(null); setLightboxLoaded(false); }}
                             className="absolute -top-2 -right-2 z-10 h-10 w-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
                         >
                             <span className="material-symbols-outlined">close</span>
                         </button>
+
+                        {/* Loading spinner */}
+                        {!lightboxLoaded && (
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <div className="size-10 rounded-full border-4 border-white/20 border-t-primary animate-spin" />
+                            </div>
+                        )}
 
                         {/* Full-res image */}
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src={selectedPhoto.fullUrl || selectedPhoto.url || selectedPhoto.thumbnailUrl}
                             alt={selectedPhoto.eventName ?? 'VIHAN Event'}
-                            className="max-h-[75vh] w-auto max-w-full object-contain rounded-2xl shadow-2xl"
+                            className={`max-h-[75vh] w-auto max-w-full object-contain rounded-2xl shadow-2xl transition-opacity duration-300 ${lightboxLoaded ? 'opacity-100' : 'opacity-0'}`}
+                            onLoad={() => setLightboxLoaded(true)}
                         />
 
                         {/* Info + Download bar */}
@@ -137,10 +152,14 @@ export default function CategoryGalleryClient({ category, initialPhotos, initial
                             </div>
                             <button
                                 onClick={() => handleDownload(selectedPhoto)}
-                                className="ml-auto flex items-center gap-1.5 bg-primary hover:bg-primary/80 text-white px-4 py-2 rounded-full text-sm font-bold transition-colors"
+                                disabled={downloading}
+                                className="ml-auto flex items-center gap-1.5 bg-primary hover:bg-primary/80 text-white px-4 py-2 rounded-full text-sm font-bold transition-colors disabled:opacity-60"
                             >
-                                <span className="material-symbols-outlined text-lg">download</span>
-                                Download
+                                {downloading ? (
+                                    <><span className="material-symbols-outlined text-lg animate-spin">sync</span> Downloading...</>
+                                ) : (
+                                    <><span className="material-symbols-outlined text-lg">download</span> Download</>
+                                )}
                             </button>
                         </div>
                     </div>

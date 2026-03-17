@@ -3,7 +3,7 @@ import Nav from "./components/nav/nav";
 import Footer from "./components/footer/footer";
 import Link from "next/link";
 import About from "./components/About";
-import EventsShowcase from "./components/EventsShowcase";
+import EventsShowcase from "./components/posterShow";
 import Timeline from "./components/Timeline";
 import QRUploadSection from "./components/QRUploadSection";
 import { useRef, useEffect } from "react";
@@ -169,7 +169,7 @@ export default function VIHANFestival(data: winnerData) {
                       )}
 
 
-                      <div className="absolute bottom-7 left-10 bg-black/30 w-full -mt-2 pb-4 z-40 -ml-4">
+                      <div className="absolute bottom-7 left-5 bg-black/30 w-43.75 -mt-2 pb-4 z-40">
                         <div className="font-bold text-white pl-4 text-md">
                           {winnerInfo && !winnersLoading ? winnerInfo.winnerName : cat.name}
                         </div>
@@ -217,7 +217,7 @@ export default function VIHANFestival(data: winnerData) {
 
 
 
-                      <div className="absolute bottom-7 left-10 bg-black/30 w-full -mt-2 z-40 -ml-4 pb-4">
+                      <div className="absolute bottom-7 left-5 bg-black/30 w-43.75 -mt-2 z-40 pb-4">
                         <div className="font-bold text-white pl-4 text-md">
                           {winnerInfo && !winnersLoading ? winnerInfo.winnerName : cat.name}
                         </div>

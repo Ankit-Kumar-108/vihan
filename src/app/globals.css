@@ -169,3 +169,30 @@ body {
 .scroll-automatically{
   animation: scroll 10s linear infinite;
 }
+
+/* ===== Skeleton Shimmer ===== */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@utility animate-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@utility animate-shimmer-light {
+  background: linear-gradient(90deg, rgba(0,0,0,0.04) 25%, rgba(0,0,0,0.08) 50%, rgba(0,0,0,0.04) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* ===== Spinner ===== */
+@keyframes loader-spin {
+  to { transform: rotate(360deg); }
+}
+
+@utility animate-loader-spin {
+  animation: loader-spin 0.8s linear infinite;
+}

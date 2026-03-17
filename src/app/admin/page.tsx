@@ -26,6 +26,9 @@ export default function AdminPage() {
     const [filter, setFilter] = useState<'pending' | 'published' | 'all'>('pending');
     const [selectedPhoto, setSelectedPhoto] = useState<PendingPhoto | null>(null);
     const [loading, setLoading] = useState(false)
+    const [initialLoad, setInitialLoad] = useState(true)
+    const [approvingId, setApprovingId] = useState<string | null>(null)
+    const [deletingId, setDeletingId] = useState<string | null>(null)
     const [lastId, setLastId] = useState<string | null>(null);
     const [hasMore, setHasMore] = useState(false);
     const [bulkApproving, setBulkApproving] = useState(false);
@@ -42,6 +45,7 @@ export default function AdminPage() {
         setLastId(result.lastId);
         setHasMore(result.hasMore);
         setLoading(false)
+        setInitialLoad(false)
     }, [lastId]);
 
     useEffect(() => {
@@ -50,7 +54,9 @@ export default function AdminPage() {
     }, []);
 
     const handleApprove = async (photo: PendingPhoto) => {
+        setApprovingId(photo.id)
         const approvedPhoto = await ApprovePhoto(photo.id)
+        setApprovingId(null)
         if (approvedPhoto.success) {
             setSelectedPhoto(null)
             setPhotos(prev => prev.map(p => p.id === photo.id ? { ...p, status: 'published' as const } : p));
@@ -86,7 +92,9 @@ export default function AdminPage() {
     };
 
     const deletePhoto = async (photo: PendingPhoto) => {
+        setDeletingId(photo.id)
         const result = await DeletePhoto(photo.id, photo.cloudyId);
+        setDeletingId(null)
 
         if (result.success) {
             const updatedList = photos.filter((p) => p.id !== photo.id);
@@ -235,7 +243,14 @@ export default function AdminPage() {
                 </div>
 
                 {/* Photo Grid */}
-                {filtered.length === 0 ? (
+                {initialLoad ? (
+                    /* Skeleton grid while photos are loading for the first time */
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+                        {Array.from({ length: 12 }).map((_, i) => (
+                            <div key={i} className="rounded-2xl aspect-square bg-slate-200 dark:bg-white/5 animate-shimmer" />
+                        ))}
+                    </div>
+                ) : filtered.length === 0 ? (
                     <div className="text-center py-20">
                         <span className="material-symbols-outlined text-5xl text-slate-300 dark:text-slate-700 mb-4 block">photo_library</span>
                         <p className="text-slate-500 font-bold">No {filter === 'all' ? '' : filter} photos</p>
@@ -320,16 +335,26 @@ export default function AdminPage() {
                                 {selectedPhoto.status !== 'published' && (
                                     <button
                                         onClick={() => handleApprove(selectedPhoto)}
-                                        className="flex-1 py-3 rounded-2xl bg-green-500 hover:bg-green-600 text-white font-bold text-sm transition-colors flex items-center justify-center gap-1.5"
+                                        disabled={approvingId === selectedPhoto.id}
+                                        className="flex-1 py-3 rounded-2xl bg-green-500 hover:bg-green-600 text-white font-bold text-sm transition-colors flex items-center justify-center gap-1.5 disabled:opacity-60"
                                     >
-                                        <span className="material-symbols-outlined text-lg">check</span> Approve
+                                        {approvingId === selectedPhoto.id ? (
+                                            <><span className="material-symbols-outlined text-lg animate-spin">sync</span> Approving...</>
+                                        ) : (
+                                            <><span className="material-symbols-outlined text-lg">check</span> Approve</>
+                                        )}
                                     </button>
                                 )}
                                 <button
                                     onClick={() => deletePhoto(selectedPhoto)}
-                                    className="py-3 px-4 rounded-2xl bg-slate-100 dark:bg-white/5 hover:bg-red-50 dark:hover:bg-red-500/10 text-slate-500 hover:text-red-500 font-bold text-sm transition-colors"
+                                    disabled={deletingId === selectedPhoto.id}
+                                    className="py-3 px-4 rounded-2xl bg-slate-100 dark:bg-white/5 hover:bg-red-50 dark:hover:bg-red-500/10 text-slate-500 hover:text-red-500 font-bold text-sm transition-colors disabled:opacity-60 flex items-center gap-1.5"
                                 >
-                                    <span className="material-symbols-outlined text-lg">delete</span>
+                                    {deletingId === selectedPhoto.id ? (
+                                        <span className="material-symbols-outlined text-lg animate-spin">sync</span>
+                                    ) : (
+                                        <span className="material-symbols-outlined text-lg">delete</span>
+                                    )}
                                 </button>
                             </div>
                         </div>

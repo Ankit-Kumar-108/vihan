@@ -18,6 +18,7 @@ export default function UploadWinner() {
   const [success, setSuccess] = useState(false);
   const [existingWinners, setExistingWinners] = useState<any[]>([]);
   const [loadingWinners, setLoadingWinners] = useState(true);
+  const [deletingCategory, setDeletingCategory] = useState<string | null>(null);
 
   const fetchWinners = async () => {
     setLoadingWinners(true);
@@ -160,16 +161,23 @@ export default function UploadWinner() {
                 <button
                   onClick={async () => {
                     if (!confirm(`Delete winner for "${w.category}"?`)) return;
+                    setDeletingCategory(w.category);
                     const res = await deleteWinner(w.category);
+                    setDeletingCategory(null);
                     if (res.success) {
                       setExistingWinners(prev => prev.filter(item => item.id !== w.id));
                     } else {
                       alert("Failed to delete winner.");
                     }
                   }}
-                  className="absolute top-2 right-2 bg-red-500/80 hover:bg-red-600 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-all shadow-lg"
+                  disabled={deletingCategory === w.category}
+                  className="absolute top-2 right-2 bg-red-500/80 hover:bg-red-600 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-all shadow-lg disabled:opacity-100"
                 >
-                  <span className="material-symbols-outlined text-sm">delete</span>
+                  {deletingCategory === w.category ? (
+                    <span className="material-symbols-outlined text-sm animate-spin">sync</span>
+                  ) : (
+                    <span className="material-symbols-outlined text-sm">delete</span>
+                  )}
                 </button>
               </div>
             ))}

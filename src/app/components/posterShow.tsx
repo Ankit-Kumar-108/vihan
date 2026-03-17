@@ -8,6 +8,7 @@ export default function EventsShowcase() {
     const [remotePosters, setRemotePosters] = useState<{url: string, publicId: string}[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedPoster, setSelectedPoster] = useState<string | null>(null);
+    const [posterLoaded, setPosterLoaded] = useState(false);
 
     // 2. Fetch the posters when the component loads
     useEffect(() => {
@@ -79,7 +80,7 @@ export default function EventsShowcase() {
             {selectedPoster && (
                 <div
                     className="fixed inset-0 z-50 flex items-center justify-center p-4"
-                    onClick={() => setSelectedPoster(null)}
+                    onClick={() => { setSelectedPoster(null); setPosterLoaded(false); }}
                 >
                     <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
                     <div
@@ -88,18 +89,26 @@ export default function EventsShowcase() {
                     >
                         {/* Close button */}
                         <button
-                            onClick={() => setSelectedPoster(null)}
+                            onClick={() => { setSelectedPoster(null); setPosterLoaded(false); }}
                             className="absolute -top-2 -right-2 z-10 h-10 w-10 cursor-pointer rounded-full bg-white/10 backdrop-blur-[5px] border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
                         >
                             <span className="material-symbols-outlined text-xl">close</span>
                         </button>
+
+                        {/* Loading spinner */}
+                        {!posterLoaded && (
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <div className="size-10 rounded-full border-4 border-white/20 border-t-primary animate-spin" />
+                            </div>
+                        )}
 
                         {/* Image */}
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src={selectedPoster}
                             alt="Event Poster"
-                            className="max-h-[85vh] md:max-h-[75vh] lg:max-h-[70vh] w-auto max-w-[95vw] md:max-w-[60vw] lg:max-w-[45vw] xl:max-w-[35vw] object-contain rounded-2xl shadow-2xl"
+                            className={`max-h-[85vh] md:max-h-[75vh] lg:max-h-[70vh] w-auto max-w-[95vw] md:max-w-[60vw] lg:max-w-[45vw] xl:max-w-[35vw] object-contain rounded-2xl shadow-2xl transition-opacity duration-300 ${posterLoaded ? 'opacity-100' : 'opacity-0'}`}
+                            onLoad={() => setPosterLoaded(true)}
                         />
                     </div>
                 </div>
