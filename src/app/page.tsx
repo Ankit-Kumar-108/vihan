@@ -41,7 +41,7 @@ export default async function VIHANFestival() {
               <div className="flex-1 text-center lg:text-left space-y-8">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 backdrop-blur-sm">
                   <span className="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
-                  <span className="text-xs font-semibold text-slate-500 dark:text-slate-300 tracking-wide uppercase">Official Fest Landing</span>
+                  <span className="text-xs font-semibold text-slate-500 dark:text-slate-300 tracking-wide uppercase">VIHAN Fest Landing</span>
                 </div>
                 <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-transparent bg-clip-text bg-linear-to-r from-slate-900 via-slate-700 to-slate-400 dark:from-white dark:via-slate-200 dark:to-slate-500 leading-[1.1] tracking-tight drop-shadow-lg">
                   CULTURE <br />
